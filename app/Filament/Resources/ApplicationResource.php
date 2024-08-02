@@ -7,6 +7,8 @@ use App\Filament\Resources\ApplicationResource\RelationManagers;
 use App\Models\Application;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Actions;
+use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -72,6 +74,25 @@ class ApplicationResource extends Resource
                         TextEntry::make("content")
                             ->label("")
                             ->markdown(),
+                        Section::make('')
+                            ->schema([
+                                TextEntry::make("statusText")
+                                    ->label("Status"),
+                                Actions::make([
+                                    Actions\Action::make('approve')
+                                        ->color('success')
+                                        ->disabled(fn(Application $record) => $record->status === 1)
+                                        ->action(fn(Application $record) => $record->approve()),
+                                    Actions\Action::make('reject')
+                                        ->color('danger')
+                                        ->disabled(fn(Application $record) => $record->status === 0)
+                                        ->action(fn(Application $record) => $record->reject()),
+                                    Actions\Action::make('Make pending')
+                                        ->color('gray')
+                                        ->disabled(fn(Application $record) => is_null($record->status))
+                                        ->action(fn(Application $record) => $record->markAsPending()),
+                                ])
+                            ])
                     ])
                     ->slideOver(),
                 Tables\Actions\EditAction::make(),

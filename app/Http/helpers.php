@@ -12,6 +12,16 @@ function json2Html($jsonContent)
     return $content;
 }
 
+function statusInfo($id = null)
+{
+    return ['Rejected', 'Approved'][$id] ?? 'Pending';
+}
+
+function statusColors($id)
+{
+    return ['danger', 'success'][$id] ?? 'gray';
+}
+
 function array2Html($v)
 {
     if (is_array($v)) {

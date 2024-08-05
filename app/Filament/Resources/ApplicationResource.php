@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Infolists\Components\Actions;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\ViewEntry;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -54,12 +55,17 @@ class ApplicationResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\IconColumn::make('status')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                // Tables\Columns\IconColumn::make('status')
+                //     ->boolean(),
+                Tables\Columns\TextColumn::make('status')
+                    ->formatStateUsing(fn(string $state): string => statusInfo($state))
+                    ->default('Pending')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->badge()
+                    ->color(fn(string $state): string => statusColors($state)),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->date()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
@@ -71,9 +77,8 @@ class ApplicationResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->infolist([
-                        TextEntry::make("content")
-                            ->label("")
-                            ->markdown(),
+                        ViewEntry::make('content')
+                            ->view('filament.infolists.entries.jsonDisplay'),
                         Section::make('')
                             ->schema([
                                 TextEntry::make("statusText")

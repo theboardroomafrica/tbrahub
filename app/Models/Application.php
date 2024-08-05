@@ -11,9 +11,18 @@ class Application extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'jsonContent' => 'array'
+    ];
+
     public function approve()
     {
         return $this->update(['status' => 1]);
+    }
+
+    public function infolistContent()
+    {
+        return json2Html($this->jsonContent);
     }
 
     public function markAsPending()

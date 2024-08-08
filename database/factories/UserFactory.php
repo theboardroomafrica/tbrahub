@@ -2,6 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Country;
+use App\Models\Industry;
+use App\Models\Skill;
+use App\Models\User;
+use App\Models\UserIndustry;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -16,6 +21,8 @@ class UserFactory extends Factory
      */
     protected static ?string $password;
 
+    protected $model = User::class;
+
     /**
      * Define the model's default state.
      *
@@ -23,14 +30,45 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $genderId = fake()->randomElement([1, 2]);
+
         return [
-            'first_name' => fake()->firstName(),
+            'first_name' => $genderId == 2 ? fake()->firstNameFemale() : fake()->firstNameMale(),
             'last_name' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'email2' => fake()->safeEmail(),
+            'email_verified_at' => fake()->dateTime(),
+            'date_of_birth' => fake()->date(),
+            'gender_id' => $genderId,
+            'phone' => fake()->phoneNumber(),
+            'phone_alt' => fake()->phoneNumber(),
+            'website' => fake()->url(),
+            'linkedin' => fake()->url(),
+            'country_id' => Country::inRandomOrder()->first()->id ?? null,
+            'nationality_id' => Country::inRandomOrder()->first()->id ?? null,
+            'nationality2_id' => Country::inRandomOrder()->first()->id ?? null,
+            'compensation' => fake()->boolean(),
+            'bio' => fake()->text(),
+            'interests' => fake()->text(),
+            'communication' => fake()->boolean(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (User $user) {
+            $industry = Industry::inRandomOrder()->first();
+            $skills = Skill::inRandomOrder()->take(rand(1, 5))->pluck('id')->toArray();
+
+            $userIndustry = UserIndustry::create([
+                'user_id' => $user->id,
+                'industry_id' => $industry->id,
+                'years' => $this->faker->numberBetween(1, 10),
+                'skill_ids' => $skills,
+            ]);
+        });
     }
 
     /**

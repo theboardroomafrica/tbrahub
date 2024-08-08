@@ -15,7 +15,8 @@ return new class extends Migration {
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('industry_id')->constrained()->onDelete('cascade');
             $table->json('skill_ids')->nullable();
-            $table->tinyInteger('years')->unsigned();
+            $table->string('highest_role')->nullable();
+            $table->tinyInteger('years')->unsigned()->nullable();
             $table->timestamps();
         });
     }

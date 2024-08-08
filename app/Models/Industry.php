@@ -10,4 +10,11 @@ class Industry extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public $timestamps = false;
+
+    public function users()
+    {
+        return $this->hasManyThrough(User::class, UserIndustry::class);
+    }
 }

@@ -16,8 +16,6 @@ return new class extends Migration {
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('email2')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('gender_id')->nullable();
             $table->string('phone')->nullable();
@@ -32,6 +30,8 @@ return new class extends Migration {
             $table->text('interests')->nullable();
             $table->boolean('communication')->default(0);
             $table->rememberToken();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
 

@@ -2,7 +2,7 @@
     <section class="mt-8">
         <div class="container">
             <div class="h-[400px] bg-darkblue border rounded-xl p-16 flex flex-col justify-center text-white gap-4">
-                <h2 class="text-5xl font-bold font-libre">Welcome, Charlotte!</h2>
+                <h2 class="text-5xl font-bold font-libre">Welcome, {{ auth()->user()->first_name }}!</h2>
                 <p class="max-w-3xl">Thanks for joining TheBoardroom Africa. To be eligible for board opportunities you
                     must
                     complete your profile, but don’t worry, we will guide you through the whole process. Here’s your

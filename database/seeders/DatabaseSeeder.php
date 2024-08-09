@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Country;
+use App\Models\Gender;
 use App\Models\Industry;
 use App\Models\Skill;
 use App\Models\User;
@@ -27,6 +28,10 @@ class DatabaseSeeder extends Seeder
             Industry::create(['name' => $industry]);
         }
 
+        foreach (gender() as $gender) {
+            Gender::create(['name' => $gender]);
+        }
+
         $jsonFile = public_path('countries.json');
         $jsonData = file_get_contents($jsonFile);
         $countries = json_decode($jsonData, true);
@@ -40,6 +45,6 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        User::factory(5000)->create();
+        User::factory(100)->create();
     }
 }

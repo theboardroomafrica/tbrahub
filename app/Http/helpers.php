@@ -32,7 +32,7 @@ function array2Html($v)
 
 function gender()
 {
-    return [1 => "Male", "Female"];
+    return ["Male", "Female"];
 }
 
 function skills()

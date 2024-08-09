@@ -8,7 +8,6 @@ use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserIndustry;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -51,7 +50,7 @@ class UserFactory extends Factory
             'bio' => fake()->text(),
             'interests' => fake()->text(),
             'communication' => fake()->boolean(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => bcrypt('password'),
             'remember_token' => Str::random(10),
         ];
     }

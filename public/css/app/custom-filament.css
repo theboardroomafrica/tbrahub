@@ -6,3 +6,9 @@
 nav.fi-tabs {
     margin-top: -80px;
 }
+
+.industry-repeater ul > div:first-child {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}

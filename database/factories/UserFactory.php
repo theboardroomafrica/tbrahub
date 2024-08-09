@@ -52,6 +52,7 @@ class UserFactory extends Factory
             'communication' => fake()->boolean(),
             'password' => bcrypt('password'),
             'remember_token' => Str::random(10),
+            'created_at' => fake()->dateTimeBetween("-5 years")
         ];
     }
 

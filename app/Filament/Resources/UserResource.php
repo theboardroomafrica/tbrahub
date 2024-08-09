@@ -37,6 +37,7 @@ class UserResource extends Resource
                 Forms\Components\DatePicker::make('date_of_birth')
                     ->required(),
                 Forms\Components\Select::make('gender_id')
+                    ->label("Gender")
                     ->required()
                     ->options(Gender::all()->pluck('name', 'id'))
                     ->nullable(),
@@ -63,14 +64,16 @@ class UserResource extends Resource
                     ->label("Nationality 2")
                     ->options(Country::all()->pluck('nationality', 'id'))
                     ->nullable(),
-                Forms\Components\Toggle::make('compensation')
-                    ->default(false),
-                Forms\Components\Toggle::make('communication')
-                    ->default(false),
                 Forms\Components\Textarea::make('bio')
                     ->nullable(),
                 Forms\Components\Textarea::make('interests')
                     ->nullable(), // TODO: update interests
+                Forms\Components\Section::make('')->schema([
+                    Forms\Components\Toggle::make('compensation')
+                        ->default(false),
+                    Forms\Components\Toggle::make('communication')
+                        ->default(false),
+                ])->columns(4),
 
                 Forms\Components\Grid::make([
                     'default' => 1

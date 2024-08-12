@@ -55,6 +55,11 @@ function languageProfiencies()
     return ["Native", "Fluent", "Advanced", "Intermediate", "Beginner/basic command"];
 }
 
+function languages()
+{
+    return ["Mandarin Chinese", "Spanish", "English", "Hindi", "Arabic", "Bengali", "Portuguese", "Russian", "Japanese", "Punjabi", "German", "Javanese", "Korean", "Vietnamese", "French", "Telugu", "Marathi", "Turkish", "Tamil", "Urdu", "Italian", "Thai", "Gujarati", "Swahili", "Polish"];
+}
+
 function boardPositions()
 {
     return ["Executive Director", "Non-Executive Director", "Chairperson", "Vice-Chairperson", "Board Observer", "Board Secretary", "Member - Board of Governance", "Member - Board of Trustees"];

@@ -8,6 +8,7 @@ use App\Models\Country;
 use App\Models\Gender;
 use App\Models\Industry;
 use App\Models\Interest;
+use App\Models\Language;
 use App\Models\LanguageProficiency;
 use App\Models\Skill;
 use App\Models\User;
@@ -31,6 +32,8 @@ class DatabaseSeeder extends Seeder
         foreach (gender() as $gender) Gender::create(['name' => $gender]);
 
         foreach (interests() as $interest) Interest::create(['name' => $interest]);
+        
+        foreach (languages() as $language) Language::create(['name' => $language]);
 
         foreach (languageProfiencies() as $languageProfiency) LanguageProficiency::create(["name" => $languageProfiency]);
 

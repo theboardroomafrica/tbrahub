@@ -49,3 +49,18 @@ function industries()
 {
     return ['Technology', 'Healthcare', 'Finance', 'Education', 'Retail', 'Manufacturing', 'Construction', 'Transportation', 'Energy', 'Real Estate', 'Telecommunications', 'Media', 'Entertainment', 'Hospitality', 'Agriculture', 'Pharmaceuticals', 'Automotive', 'Food and Beverage', 'Aerospace', 'Logistics'];
 }
+
+function languageProfiencies()
+{
+    return ["Native", "Fluent", "Advanced", "Intermediate", "Beginner/basic command"];
+}
+
+function boardPositions()
+{
+    return ["Executive Director", "Non-Executive Director", "Chairperson", "Vice-Chairperson", "Board Observer", "Board Secretary", "Member - Board of Governance", "Member - Board of Trustees"];
+}
+
+function committees()
+{
+    return ["Audit", "Compensation (or Remuneration)", "Nominating (or Governance)", "Finance", "Risk Management.", "Strategy", "Executive", "Compliance", "Ethics", "Investment", "Technology", "Human Resources", "Public Relations/Communications", "Sustainability", "Legal", "Health and Safety", "Audit and Risk", "Charitable Giving", "Real Estate", "Diversity, Equity, and Inclusion (DEI)", "Crisis Management", "Learning and Development", "Customer/Client Relations", "Product Development", "Community Relations"];
+}

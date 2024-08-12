@@ -2,10 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\BoardPosition;
+use App\Models\Committee;
 use App\Models\Country;
 use App\Models\Gender;
 use App\Models\Industry;
 use App\Models\Interest;
+use App\Models\LanguageProficiency;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -21,21 +24,19 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        foreach (skills() as $skill) {
-            Skill::create(['name' => $skill]);
-        }
+        foreach (skills() as $skill) Skill::create(['name' => $skill]);
 
-        foreach (industries() as $industry) {
-            Industry::create(['name' => $industry]);
-        }
+        foreach (industries() as $industry) Industry::create(['name' => $industry]);
 
-        foreach (gender() as $gender) {
-            Gender::create(['name' => $gender]);
-        }
+        foreach (gender() as $gender) Gender::create(['name' => $gender]);
 
-        foreach (interests() as $interest) {
-            Interest::create(['name' => $interest]);
-        }
+        foreach (interests() as $interest) Interest::create(['name' => $interest]);
+
+        foreach (languageProfiencies() as $languageProfiency) LanguageProficiency::create(["name" => $languageProfiency]);
+
+        foreach (boardPositions() as $position) BoardPosition::create(['title' => $position]);
+
+        foreach (committees() as $committee) Committee::create(['name' => $committee]);
 
         $jsonFile = public_path('countries.json');
         $jsonData = file_get_contents($jsonFile);
@@ -50,6 +51,6 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        User::factory(100)->create();
+        User::factory(10)->create();
     }
 }

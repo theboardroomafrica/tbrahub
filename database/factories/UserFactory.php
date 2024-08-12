@@ -2,9 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Models\BoardExperience;
+use App\Models\BoardPosition;
+use App\Models\Committee;
 use App\Models\Country;
 use App\Models\Industry;
 use App\Models\Interest;
+use App\Models\Language;
+use App\Models\LanguageProficiency;
+use App\Models\ProfessionalExperience;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserIndustry;
@@ -71,6 +77,48 @@ class UserFactory extends Factory
 
             $interests = Interest::inRandomOrder()->limit(3)->pluck('id');
             $user->interests()->attach($interests);
+
+            $languages = Language::inRandomOrder()->take(3)->get();
+
+            foreach ($languages as $language) {
+                $user->languages()->create([
+                    'language_id' => $language->id,
+                    'written_proficiency_id' => LanguageProficiency::inRandomOrder()->first()->id,
+                    'spoken_proficiency_id' => LanguageProficiency::inRandomOrder()->first()->id,
+                ]);
+            }
+
+            foreach (range(1, 3) as $i) {
+                ProfessionalExperience::create([
+                    'user_id' => $user->id,
+                    'position' => $this->faker->jobTitle(),
+                    'organization' => $this->faker->company(),
+                    'location' => $this->faker->city(),
+                    'start_date' => $this->faker->date(),
+                    'end_date' => $this->faker->optional()->date(),
+                    'description' => $this->faker->paragraph(),
+                ]);
+            }
+
+            foreach (range(1, 3) as $index) {
+                $committees = Committee::inRandomOrder()->take(3)->pluck('id')->toArray();
+                $position = BoardPosition::inRandomOrder()->first();
+
+                BoardExperience::create([
+                    'user_id' => $user->id,
+                    'position_id' => $position->id,
+                    'organization' => $this->faker->company(),
+                    'location' => $this->faker->city(),
+                    'start_date' => $this->faker->date(),
+                    'end_date' => $this->faker->optional()->date(),
+                    'description' => $this->faker->paragraph(),
+                    'non_profit' => $this->faker->boolean(),
+                    'publicly_listed' => $this->faker->boolean(),
+                    'paid_appointment' => $this->faker->boolean(),
+                    'website' => $this->faker->optional()->url(),
+                    'committee_ids' => $committees,
+                ]);
+            }
         });
     }
 

@@ -63,6 +63,11 @@ class User extends Authenticatable
         return $this->hasManyThrough(Skill::class, UserIndustry::class, 'user_id', 'id', 'id', 'user_industry_id');
     }
 
+    public function interests()
+    {
+        return $this->belongsToMany(Interest::class);
+    }
+
     public function gender()
     {
         return $this->belongsTo(Gender::class);

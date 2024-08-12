@@ -40,6 +40,11 @@ function skills()
     return ['Project Management', 'Data Analysis', 'Software Development', 'Graphic Design', 'Communication', 'Problem Solving', 'Time Management', 'Leadership', 'Customer Service', 'Marketing', 'Sales', 'Financial Analysis', 'Public Speaking', 'Writing', 'Teamwork', 'Critical Thinking', 'Negotiation', 'Creativity', 'Adaptability', 'Technical Support'];
 }
 
+function interests()
+{
+    return ["Executive Programmes", "Networking", "Board Opportunities", "Personal Brand & Professional Presence", "Thought Leadership",];
+}
+
 function industries()
 {
     return ['Technology', 'Healthcare', 'Finance', 'Education', 'Retail', 'Manufacturing', 'Construction', 'Transportation', 'Energy', 'Real Estate', 'Telecommunications', 'Media', 'Entertainment', 'Hospitality', 'Agriculture', 'Pharmaceuticals', 'Automotive', 'Food and Beverage', 'Aerospace', 'Logistics'];

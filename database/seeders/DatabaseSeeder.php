@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Country;
 use App\Models\Gender;
 use App\Models\Industry;
+use App\Models\Interest;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -30,6 +31,10 @@ class DatabaseSeeder extends Seeder
 
         foreach (gender() as $gender) {
             Gender::create(['name' => $gender]);
+        }
+
+        foreach (interests() as $interest) {
+            Interest::create(['name' => $interest]);
         }
 
         $jsonFile = public_path('countries.json');

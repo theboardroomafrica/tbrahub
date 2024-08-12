@@ -27,7 +27,6 @@ return new class extends Migration {
             $table->foreignId('nationality2_id')->nullable();
             $table->boolean('compensation')->default(0);
             $table->text('bio')->nullable();
-            $table->text('interests')->nullable();
             $table->boolean('communication')->default(0);
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();

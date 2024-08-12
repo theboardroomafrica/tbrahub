@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Country;
 use App\Models\Industry;
+use App\Models\Interest;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserIndustry;
@@ -48,7 +49,6 @@ class UserFactory extends Factory
             'nationality2_id' => Country::inRandomOrder()->first()->id ?? null,
             'compensation' => fake()->boolean(),
             'bio' => fake()->text(),
-            'interests' => fake()->text(),
             'communication' => fake()->boolean(),
             'password' => bcrypt('password'),
             'remember_token' => Str::random(10),
@@ -68,6 +68,9 @@ class UserFactory extends Factory
                 'years' => $this->faker->numberBetween(1, 10),
                 'skill_ids' => $skills,
             ]);
+
+            $interests = Interest::inRandomOrder()->limit(3)->pluck('id');
+            $user->interests()->attach($interests);
         });
     }
 

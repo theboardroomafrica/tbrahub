@@ -7,6 +7,7 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\Country;
 use App\Models\Gender;
 use App\Models\Industry;
+use App\Models\Interest;
 use App\Models\Skill;
 use App\Models\User;
 use Filament\Forms;
@@ -20,6 +21,8 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $modelLabel = "Member";
 
     public static function form(Form $form): Form
     {
@@ -66,8 +69,15 @@ class UserResource extends Resource
                     ->nullable(),
                 Forms\Components\Textarea::make('bio')
                     ->nullable(),
-                Forms\Components\Textarea::make('interests')
-                    ->nullable(), // TODO: update interests
+                Forms\Components\Select::make('interests')
+                    ->label('Interests')
+                    ->relationship('interests', 'name')
+                    ->multiple()
+                    ->options(Interest::all()->pluck('name', 'id'))
+                    ->maxItems(3)
+                    ->columnSpan(2)
+                    ->required()
+                    ->searchable(),
                 Forms\Components\Section::make('')->schema([
                     Forms\Components\Toggle::make('compensation')
                         ->default(false),

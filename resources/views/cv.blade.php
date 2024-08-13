@@ -24,7 +24,7 @@
             <div class="flex gap-8 items-center">
                 <img src="https://placehold.co/100" class="rounded-full">
                 <div>
-                    <h1 class="text-3xl font-bold">Charlotte Moses</h1>
+                    <h1 class="text-3xl font-bold">{{ $user->name }}</h1>
                     <p class="text-xl">Experienced Financial Industry Leader</p>
                 </div>
             </div>
@@ -33,45 +33,28 @@
                 <p>{{ fake()->e164PhoneNumber() }}</p>
                 <p>{{ fake()->companyEmail() }}</p>
                 <p>{{ fake()->city }}, {{ fake()->country() }}</p>
-                <a href="#" class="mt-4 font-bold text-sm text-blue-500 inline-block">LinkedIn Profile</a>
+                <a href="{{ $user->linkedin }}" class="mt-4 font-bold text-sm text-blue-500 inline-block">LinkedIn
+                    Profile</a>
             </div>
         </div>
         <div class="p-12">
             <div class="profile-intro">
                 <h2>Profile summary</h2>
-                <p class="intro mt-4">Dynamic and experienced Your Profession, e.g., executive, financial expert,
-                    lawyer] with over X years] of comprehensive experience in [industry/field]. Proven track
-                    record in strategic leadership, corporate governance, and financial oversight. Adept at
-                    driving organizational growth, managing risk, and guiding strategic decisions. Seeking to
-                    leverage expertise and insight as a member of the Board of Directors for
-                    Company/Organization Name].</p>
+                <p class="intro mt-4">{{ $user->bio }}</p>
             </div>
 
             <div class="content-grid grid grid-cols-[2fr_1fr] mt-12 gap-16">
                 <div class="cv-main">
                     <div class="experience">
                         <h2>Professional Experience</h2>
-                        @foreach(range(1, 2) as $experience)
+                        @foreach($user->professionalExperiences()->ordered()->get() as $experience)
                             <section class="experience-details mt-6">
-                                <h3>{{ fake()->jobTitle() }} &#x2022; {{ fake()->company() }}</h3>
-                                <p class="text-tender-400 text-sm">April 2023 - Present
-                                    | {{ fake()->city() . ", " . fake()->country() }}</p>
-                                <div class="mt-4">
-                                    <p>[Briefly describe your role, responsibilities, and major achievements. Focus on
-                                        leadership, strategy, and any board-level interactions or decisions.]</p>
-
-                                    <ul class="mt-4 list-disc">
-                                        <li>Lead the financial strategy and operations, overseeing budgeting,
-                                            forecasting,
-                                            financial reporting, and risk management.
-                                        </li>
-                                        <li>Achieved a 70% increase in revenue through strategic initiatives and market
-                                            expansion.
-                                        </li>
-                                        <li>Implemented financial controls and processes, reducing financial risk by 60%
-                                        </li>
-                                    </ul>
-
+                                <h3>{{ $experience->position }} &#x2022; {{ $experience->organization }}</h3>
+                                <p class="text-tender-400 text-sm">{{ $experience->start_date->format('F Y') }} -
+                                    {{ $experience->end_date?->format('F Y') ?? "Present" }}
+                                    | {{ $experience->location }}</p>
+                                <div class="mt-4 prose">
+                                    {!! nl2br($experience->description) !!}
                                 </div>
                             </section>
                         @endforeach
@@ -79,14 +62,14 @@
 
                     <div class="experience mt-10">
                         <h2>Board Experience</h2>
-                        @foreach(range(1, 3) as $experience)
+                        @foreach($user->boardExperiences as $experience)
                             <section class="experience-details mt-6">
-                                <h3>{{ fake()->jobTitle() }} &#x2022; {{ fake()->company() }}</h3>
-                                <p class="text-tender-400 text-sm">April 2023 - Present
-                                    | {{ fake()->city() . ", " . fake()->country() }}</p>
+                                <h3>{{ $experience->position->title }} &#x2022; {{ $experience->organization }}</h3>
+                                <p class="text-tender-400 text-sm">{{ $experience->start_date->format('F Y') }}
+                                    - {{ $experience->end_date?->format('F Y') ?? "Present" }}
+                                    | {{ $experience->location }}</p>
                                 <div class="mt-4">
-                                    <p>[Briefly describe your role, responsibilities, and major achievements. Focus on
-                                        leadership, strategy, and any board-level interactions or decisions.]</p>
+                                    <p>{{ $experience->description }}</p>
                                 </div>
                             </section>
                         @endforeach
@@ -95,10 +78,10 @@
                 <div class="cv-sidebar">
                     <div class="side-category">
                         <h2 class="mb-6">Achievements</h2>
-                        @foreach(range(1, 3) as $catItem)
+                        @foreach($user->achievements as $achievement)
                             <div class="mt-4">
-                                <h3>Fund raising</h3>
-                                <p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                <h3>{{ $achievement->title }}</h3>
+                                <p class="mt-2">{{ $achievement->description }}</p>
                             </div>
                         @endforeach
                     </div>
@@ -118,8 +101,9 @@
                         <h2 class="mb-2">Recognitions</h2>
                         <div class="mt-4">
                             <ul class="mt-4 list-disc">
-                                @foreach(range(1, 4) as $catItem)
-                                    <li>[Award Name], [Awarding Body], [Year]</li>
+                                @foreach($user->recognitions as $recognition)
+                                    <li><b>{{ $recognition->award }}</b>, {{ $recognition->organization }}
+                                        , {{ $recognition->year }}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -137,10 +121,11 @@
                         <h2 class="mb-2">Languages</h2>
                         <div class="mt-4">
                             <table class="w-full" cellspacing="20px">
-                                @foreach(["English", "Spanish", "French"] as $language)
+                                @foreach($user->languages as $userLanguage)
                                     <tr>
                                         <td class="w-1/2">
-                                            <p><b>{{ $language }}</b> (Native)</p>
+                                            <p><b>{{ $userLanguage->language->name }}</b>
+                                                ({{ $userLanguage->spokenProficiency->name }})</p>
                                         </td>
                                         <td class="w-1/2">
                                             <p class="text-4xl text-mustard leading-none">{!! str_repeat("&#x2022;", 5) !!}</p>

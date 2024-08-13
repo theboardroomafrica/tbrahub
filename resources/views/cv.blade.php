@@ -15,7 +15,9 @@
         rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @filamentStyles
+    @vite(['resources/css/app.css', 'resources/js/noalpine.js'])
+    @filamentScripts
 </head>
 <body class="font-inter antialiased bg-gray-100 text-[#475569]">
 <section class="container cv my-16">
@@ -49,7 +51,10 @@
                         <h2>Professional Experience</h2>
                         @foreach($user->professionalExperiences()->ordered()->get() as $experience)
                             <section class="experience-details mt-6">
-                                <h3>{{ $experience->position }} &#x2022; {{ $experience->organization }}</h3>
+                                <div class="flex gap-2">
+                                    <livewire:prof-experience :record="$experience"/>
+                                    <h3>{{ $experience->position }} &#x2022; {{ $experience->organization }}</h3>
+                                </div>
                                 <p class="text-tender-400 text-sm">{{ $experience->start_date->format('F Y') }} -
                                     {{ $experience->end_date?->format('F Y') ?? "Present" }}
                                     | {{ $experience->location }}</p>
@@ -69,7 +74,7 @@
                                     - {{ $experience->end_date?->format('F Y') ?? "Present" }}
                                     | {{ $experience->location }}</p>
                                 <div class="mt-4">
-                                    <p>{{ $experience->description }}</p>
+                                    {!! nl2br($experience->description) !!}
                                 </div>
                             </section>
                         @endforeach

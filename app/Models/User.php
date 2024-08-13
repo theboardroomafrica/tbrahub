@@ -92,4 +92,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserLanguage::class);
     }
+
+    public function recognitions()
+    {
+        return $this->hasMany(Recognition::class, 'user_id');
+    }
+
+    public function achievements()
+    {
+        return $this->hasMany(Achievement::class, 'user_id');
+    }
 }

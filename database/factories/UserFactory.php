@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Achievement;
 use App\Models\BoardExperience;
 use App\Models\BoardPosition;
 use App\Models\Committee;
@@ -11,6 +12,7 @@ use App\Models\Interest;
 use App\Models\Language;
 use App\Models\LanguageProficiency;
 use App\Models\ProfessionalExperience;
+use App\Models\Recognition;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserIndustry;
@@ -66,7 +68,7 @@ class UserFactory extends Factory
             $userIndustry = UserIndustry::create([
                 'user_id' => $user->id,
                 'industry_id' => $industry->id,
-                'years' => $this->faker->numberBetween(1, 10),
+                'years' => fake()->numberBetween(1, 10),
                 'skill_ids' => $skills,
             ]);
 
@@ -86,12 +88,12 @@ class UserFactory extends Factory
             foreach (range(1, 3) as $i) {
                 ProfessionalExperience::create([
                     'user_id' => $user->id,
-                    'position' => $this->faker->jobTitle(),
-                    'organization' => $this->faker->company(),
-                    'location' => $this->faker->city(),
-                    'start_date' => $this->faker->date(),
-                    'end_date' => $this->faker->optional()->date(),
-                    'description' => $this->faker->paragraph(),
+                    'position' => fake()->jobTitle(),
+                    'organization' => fake()->company(),
+                    'location' => fake()->city(),
+                    'start_date' => fake()->date(),
+                    'end_date' => fake()->optional()->date(),
+                    'description' => fake()->paragraph(),
                 ]);
             }
 
@@ -102,16 +104,34 @@ class UserFactory extends Factory
                 BoardExperience::create([
                     'user_id' => $user->id,
                     'position_id' => $position->id,
-                    'organization' => $this->faker->company(),
-                    'location' => $this->faker->city(),
-                    'start_date' => $this->faker->date(),
-                    'end_date' => $this->faker->optional()->date(),
-                    'description' => $this->faker->paragraph(),
-                    'non_profit' => $this->faker->boolean(),
-                    'publicly_listed' => $this->faker->boolean(),
-                    'paid_appointment' => $this->faker->boolean(),
-                    'website' => $this->faker->optional()->url(),
+                    'organization' => fake()->company(),
+                    'location' => fake()->city(),
+                    'start_date' => fake()->date(),
+                    'end_date' => fake()->optional()->date(),
+                    'description' => fake()->paragraph(),
+                    'non_profit' => fake()->boolean(),
+                    'publicly_listed' => fake()->boolean(),
+                    'paid_appointment' => fake()->boolean(),
+                    'website' => fake()->optional()->url(),
                     'committee_ids' => $committees,
+                ]);
+            }
+
+            foreach (range(1, 3) as $index) {
+                Recognition::create([
+                    'user_id' => $user->id,
+                    'award' => ucfirst(fake()->words(3, true)),
+                    'organization' => fake()->company(),
+                    'year' => fake()->year(),
+                ]);
+            }
+
+            foreach (range(1, 3) as $index) {
+                Achievement::create([
+                    'user_id' => $user->id,
+                    'title' => ucfirst(fake()->words(3, true)),
+                    'description' => fake()->paragraph(),
+                    'date' => fake()->date(),
                 ]);
             }
         });

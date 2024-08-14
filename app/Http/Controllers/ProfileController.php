@@ -25,6 +25,7 @@ class ProfileController extends Controller
     {
         return view('cv', [
             'user' => $request->user(),
+            'actions' => true,
         ]);
     }
 

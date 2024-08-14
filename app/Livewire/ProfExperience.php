@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Filament\Utilities\FormUtility;
+use App\Models\BoardExperience;
+use App\Models\ProfessionalExperience;
 use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
@@ -17,19 +19,60 @@ class ProfExperience extends Component implements HasForms, HasActions
     use InteractsWithForms;
     use InteractsWithActions;
 
-    public $record;
+    public $experiences;
+    public $actions = false;
+    public $model = "professional";
+    public $title = "Professional Experience";
+    public $user;
+
+    public function mount()
+    {
+        $this->experiences = $this->model == 'professional' ?
+            $this->user->orderedProfessionalExperiences() :
+            $this->user->orderedBoardExperiences();
+    }
+
+    public function getModel()
+    {
+        return $this->model == "professional" ? ProfessionalExperience::class : BoardExperience::class;
+    }
+
+    public function getFormUtility()
+    {
+        return $this->model == "professional" ? FormUtility::ProfersionalExperience() : FormUtility::BoardExperience();
+    }
 
     public function editAction(): Action
     {
         return EditAction::make()
             ->form([
-                ...FormUtility::ProfersionalExperience()
+                ...$this->getFormUtility()
             ])
             ->color('info')
             ->modalWidth(MaxWidth::SixExtraLarge)
             ->iconButton()
             ->icon('heroicon-o-pencil')
-            ->record($this->record);
+            ->record(function ($arguments) {
+                return $this->getModel()::find($arguments['experience_id']);
+            });
+    }
+
+    public function createAction(): Action
+    {
+        return Action::make('create')
+            ->model($this->model)
+            ->form([
+                ...$this->getFormUtility()
+            ])
+            ->iconButton()
+            ->extraAttributes(['class' => 'btn-tender text-white hover:text-white'])
+            ->modalHeading('Add Professional Experience')
+            ->action(function ($data) {
+                $user = auth()->user();
+                $this->getModel()::create(['user_id' => $user->id, ...$data]);
+                $this->experiences = $user->orderedProfessionalExperiences();
+            })
+            ->icon('heroicon-o-plus');
     }
 
     public function deleteAction(): Action
@@ -39,7 +82,7 @@ class ProfExperience extends Component implements HasForms, HasActions
             ->iconButton()
             ->icon('heroicon-o-trash')
             ->color('danger')
-            ->action(fn() => $this->record->delete());
+            ->action(fn($arguments) => $this->getModel()::find($arguments['experience_id'])->delete());
     }
 
     public function render()

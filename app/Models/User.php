@@ -83,9 +83,19 @@ class User extends Authenticatable
         return $this->hasMany(ProfessionalExperience::class);
     }
 
+    public function orderedProfessionalExperiences()
+    {
+        return $this->professionalExperiences()->ordered()->get();
+    }
+
     public function boardExperiences()
     {
         return $this->hasMany(BoardExperience::class);
+    }
+
+    public function orderedBoardExperiences()
+    {
+        return $this->boardExperiences()->ordered()->get();
     }
 
     public function languages()

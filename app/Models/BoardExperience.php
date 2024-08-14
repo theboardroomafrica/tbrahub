@@ -26,4 +26,11 @@ class BoardExperience extends Model
     {
         return $this->belongsTo(BoardPosition::class, 'position_id');
     }
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('start_date', 'desc')
+            ->orderByRaw('CASE WHEN end_date IS NULL THEN 1 ELSE 0 END')
+            ->orderBy('end_date', 'asc');
+    }
 }

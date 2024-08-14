@@ -25,11 +25,21 @@ class ProfExperience extends Component implements HasForms, HasActions
             ->form([
                 ...FormUtility::ProfersionalExperience()
             ])
-            ->color('tender')
+            ->color('info')
             ->modalWidth(MaxWidth::SixExtraLarge)
             ->iconButton()
             ->icon('heroicon-o-pencil')
             ->record($this->record);
+    }
+
+    public function deleteAction(): Action
+    {
+        return Action::make('delete')
+            ->requiresConfirmation()
+            ->iconButton()
+            ->icon('heroicon-o-trash')
+            ->color('danger')
+            ->action(fn() => $this->record->delete());
     }
 
     public function render()

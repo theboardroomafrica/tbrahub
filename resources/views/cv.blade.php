@@ -51,9 +51,9 @@
                         <h2>Professional Experience</h2>
                         @foreach($user->professionalExperiences()->ordered()->get() as $experience)
                             <section class="experience-details mt-6">
-                                <div class="flex gap-2">
-                                    <livewire:prof-experience :record="$experience"/>
+                                <div class="flex gap-2 justify-between">
                                     <h3>{{ $experience->position }} &#x2022; {{ $experience->organization }}</h3>
+                                    <livewire:prof-experience :record="$experience"/>
                                 </div>
                                 <p class="text-tender-400 text-sm">{{ $experience->start_date->format('F Y') }} -
                                     {{ $experience->end_date?->format('F Y') ?? "Present" }}

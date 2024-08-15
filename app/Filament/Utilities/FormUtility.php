@@ -122,4 +122,36 @@ class FormUtility
             ]),
         ];
     }
+
+    public static function achievements()
+    {
+        return [
+            Forms\Components\TextInput::make('title')
+                ->label('Title')
+                ->required(),
+            Forms\Components\Textarea::make('description')
+                ->label('Description')
+                ->required(),
+            Forms\Components\DatePicker::make('date')
+                ->required()
+        ];
+    }
+
+    public static function Languages()
+    {
+        return [
+            Forms\Components\Select::make('language_id')
+                ->label('Language')
+                ->relationship('language', 'name')
+                ->required(),
+            Forms\Components\Select::make('written_proficiency_id')
+                ->label('Written Proficiency')
+                ->relationship('writtenProficiency', 'name')
+                ->required(),
+            Forms\Components\Select::make('spoken_proficiency_id')
+                ->label('Spoken Proficiency')
+                ->relationship('spokenProficiency', 'name')
+                ->required(),
+        ];
+    }
 }

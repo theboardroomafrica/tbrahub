@@ -101,18 +101,7 @@ class UserResource extends Resource
                                 Forms\Components\Repeater::make('user_languages')
                                     ->relationship('languages')
                                     ->schema([
-                                        Forms\Components\Select::make('language_id')
-                                            ->label('Language')
-                                            ->relationship('language', 'name')
-                                            ->required(),
-                                        Forms\Components\Select::make('written_proficiency_id')
-                                            ->label('Written Proficiency')
-                                            ->relationship('writtenProficiency', 'name')
-                                            ->required(),
-                                        Forms\Components\Select::make('spoken_proficiency_id')
-                                            ->label('Spoken Proficiency')
-                                            ->relationship('spokenProficiency', 'name')
-                                            ->required(),
+                                        ...FormUtility::Languages()
                                     ])
                                     ->extraAttributes(['class' => 'industry-repeater'])
                                     ->itemLabel('Language')

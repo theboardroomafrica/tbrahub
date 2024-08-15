@@ -80,12 +80,28 @@ class FormUtility
                             ->label('Website')
                             ->nullable()
                             ->maxLength(255),
-                        Forms\Components\Select::make('committee_ids')
-                            ->label("Committees Joined")
-                            ->multiple()
-                            ->columnSpanFull()
-                            ->options(Committee::pluck('name', 'id'))
-                            ->required(),
+                        Forms\Components\Repeater::make('boardExperienceCommittees')
+                            ->relationship('boardExperienceCommittees')
+                            ->schema([
+                                Forms\Components\Select::make('committee_id')
+                                    // ->relationship('committees', 'name')
+                                    ->label('Committee')
+                                    ->options(function () {
+                                        return Committee::pluck('name', 'id');
+                                    })
+                                    ->required(),
+                                Forms\Components\Select::make('chair')
+                                    ->label('Role')
+                                    ->options([
+                                        true => 'Chair',
+                                        false => 'Member',
+                                    ])
+                                    ->pivotData([
+                                        'chair' => true
+                                    ])
+                                    ->required()
+                            ])->columnSpan(2)
+                            ->columns(2),
                     ])->columns(2),
                 Forms\Components\Section::make('')
                     ->schema([

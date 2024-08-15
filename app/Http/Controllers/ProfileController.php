@@ -23,7 +23,7 @@ class ProfileController extends Controller
 
     public function index(Request $request): View
     {
-        return view('cv', [
+        return view('profile.show', [
             'user' => $request->user(),
             'actions' => true,
         ]);

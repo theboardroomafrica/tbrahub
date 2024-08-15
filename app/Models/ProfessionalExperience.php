@@ -27,4 +27,9 @@ class ProfessionalExperience extends Model
             ->orderByRaw('CASE WHEN end_date IS NULL THEN 1 ELSE 0 END')
             ->orderBy('end_date', 'asc');
     }
+
+    public function getJobTitleAttribute()
+    {
+        return $this->position;
+    }
 }

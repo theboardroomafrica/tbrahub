@@ -98,10 +98,9 @@ class UserFactory extends Factory
             }
 
             foreach (range(1, 3) as $index) {
-                $committees = Committee::inRandomOrder()->take(3)->pluck('id')->toArray();
                 $position = BoardPosition::inRandomOrder()->first();
 
-                BoardExperience::create([
+                $boardExperience = BoardExperience::create([
                     'user_id' => $user->id,
                     'position_id' => $position->id,
                     'organization' => fake()->company(),
@@ -113,8 +112,14 @@ class UserFactory extends Factory
                     'publicly_listed' => fake()->boolean(),
                     'paid_appointment' => fake()->boolean(),
                     'website' => fake()->optional()->url(),
-                    'committee_ids' => $committees,
                 ]);
+
+                $committees = Committee::inRandomOrder()->take(rand(1, 3))->get();
+                foreach ($committees as $committee) {
+                    $boardExperience->committees()->attach($committee->id, [
+                        'chair' => $this->faker->boolean,
+                    ]);
+                }
             }
 
             foreach (range(1, 3) as $index) {

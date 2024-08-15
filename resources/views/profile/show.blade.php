@@ -47,23 +47,10 @@
 
             <div class="content-grid grid grid-cols-[2fr_1fr] mt-12 gap-16">
                 <div class="cv-main">
-                    <livewire:prof-experience :user="$user" :actions="$actions" :model="'professional'"/>
-
-                    <div class="experience mt-10">
-                        {{--                        <livewire:prof-experience :model="'board'" :title="'Board Experience'" :actions="true"--}}
-                        {{--                                                  :experiences="$user->orderedBoardExperiences()"/>--}}
-                        <h2>Board Experience</h2>
-                        @foreach($user->boardExperiences as $experience)
-                            <section class="experience-details mt-6">
-                                <h3>{{ $experience->position->title }} &#x2022; {{ $experience->organization }}</h3>
-                                <p class="text-tender-400 text-sm">{{ $experience->start_date->format('F Y') }}
-                                    - {{ $experience->end_date?->format('F Y') ?? "Present" }}
-                                    | {{ $experience->location }}</p>
-                                <div class="mt-4">
-                                    {!! nl2br($experience->description) !!}
-                                </div>
-                            </section>
-                        @endforeach
+                    <livewire:experience-manager :user="$user" :actions="$actions" :model="'professional'"/>
+                    <div class="mt-10">
+                        <livewire:experience-manager :user="$user" :actions="$actions" :model="'board'"
+                                                     :title="'Board Experience'"/>
                     </div>
                 </div>
                 <div class="cv-sidebar">

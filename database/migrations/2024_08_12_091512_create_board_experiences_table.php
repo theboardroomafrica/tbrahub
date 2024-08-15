@@ -23,7 +23,6 @@ return new class extends Migration {
             $table->boolean('publicly_listed')->default(false);
             $table->boolean('paid_appointment')->default(false);
             $table->string('website')->nullable();
-            $table->json('committee_ids')->nullable();
             $table->timestamps();
         });
     }

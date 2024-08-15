@@ -14,7 +14,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Support\Enums\MaxWidth;
 use Livewire\Component;
 
-class ProfExperience extends Component implements HasForms, HasActions
+class ExperienceManager extends Component implements HasForms, HasActions
 {
     use InteractsWithForms;
     use InteractsWithActions;
@@ -60,7 +60,7 @@ class ProfExperience extends Component implements HasForms, HasActions
     public function createAction(): Action
     {
         return Action::make('create')
-            ->model($this->model)
+            ->model($this->getModel())
             ->form([
                 ...$this->getFormUtility()
             ])
@@ -70,7 +70,6 @@ class ProfExperience extends Component implements HasForms, HasActions
             ->action(function ($data) {
                 $user = auth()->user();
                 $this->getModel()::create(['user_id' => $user->id, ...$data]);
-                $this->experiences = $user->orderedProfessionalExperiences();
             })
             ->icon('heroicon-o-plus');
     }
@@ -87,6 +86,6 @@ class ProfExperience extends Component implements HasForms, HasActions
 
     public function render()
     {
-        return view('livewire.prof-experience');
+        return view('livewire.experience-manager');
     }
 }

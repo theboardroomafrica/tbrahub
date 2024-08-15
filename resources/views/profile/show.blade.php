@@ -85,7 +85,8 @@
 
             <div class="content-grid grid grid-cols-[2fr_1fr] mt-12 gap-16">
                 <div class="cv-main">
-                    <livewire:experience-manager :user="$user" :actions="$actions" :model="'professional'"/>
+                    <livewire:experience-manager :title="'Professional Experience'" :user="$user" :actions="$actions"
+                                                 :model="'professional'"/>
                     <div class="mt-10">
                         <livewire:experience-manager :user="$user" :actions="$actions" :model="'board'"
                                                      :title="'Board Experience'"/>
@@ -93,13 +94,8 @@
                 </div>
                 <div class="cv-sidebar">
                     <div class="side-category">
-                        <h2 class="mb-6">Achievements</h2>
-                        @foreach($user->achievements as $achievement)
-                            <div class="mt-4">
-                                <h3>{{ $achievement->title }}</h3>
-                                <p class="mt-2">{{ $achievement->description }}</p>
-                            </div>
-                        @endforeach
+                        <livewire:experience-manager :title="'Achievement'" :user="$user" :actions="$actions"
+                                                     :model="'achievement'"/>
                     </div>
 
                     <div class="side-category">
@@ -134,22 +130,8 @@
                     </div>
 
                     <div class="side-category">
-                        <h2 class="mb-2">Languages</h2>
-                        <div class="mt-4">
-                            <table class="w-full" cellspacing="20px">
-                                @foreach($user->languages as $userLanguage)
-                                    <tr>
-                                        <td class="w-1/2">
-                                            <p><b>{{ $userLanguage->language->name }}</b>
-                                                ({{ $userLanguage->spokenProficiency->name }})</p>
-                                        </td>
-                                        <td class="w-1/2">
-                                            <p class="text-4xl text-mustard leading-none">{!! str_repeat("&#x2022;", 5) !!}</p>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </table>
-                        </div>
+                        <livewire:experience-manager :title="'Languages'" :user="$user" :actions="$actions"
+                                                     :model="'language'"/>
                     </div>
                 </div>
             </div>

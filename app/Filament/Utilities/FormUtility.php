@@ -5,6 +5,7 @@ namespace App\Filament\Utilities;
 use App\Models\BoardPosition;
 use App\Models\Committee;
 use Filament\Forms;
+use Illuminate\Validation\Rule;
 
 class FormUtility
 {
@@ -143,6 +144,13 @@ class FormUtility
             Forms\Components\Select::make('language_id')
                 ->label('Language')
                 ->relationship('language', 'name')
+                ->validationMessages([
+                    'unique' => 'You have already selected this language.',
+                ])
+                ->rule(
+                    Rule::unique('user_languages', 'language_id')
+                        ->where('user_id', auth()->id())
+                )
                 ->required(),
             Forms\Components\Select::make('written_proficiency_id')
                 ->label('Written Proficiency')

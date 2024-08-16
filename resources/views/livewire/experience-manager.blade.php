@@ -1,6 +1,6 @@
 <div>
     <div class="flex gap-6 items-center">
-        <h2>{{ $title }}</h2>
+        <h2>{{ $this->title }}</h2>
         @if($this->actions)
             {{ $this->createAction }}
         @endif
@@ -10,12 +10,7 @@
             <section class="experience-details mt-6">
                 <div class="flex gap-2 justify-between">
                     <h3>{{ $record->jobTitle }} &#x2022; {{ $record->organization }}</h3>
-                    @if($this->actions)
-                        <div class="flex gap-2">
-                            {{ ($this->editAction)(['experience_id' => $record->id]) }}
-                            {{ ($this->deleteAction)(['experience_id' => $record->id]) }}
-                        </div>
-                    @endif
+                    @include('livewire.partials.profile-actions')
                 </div>
                 <p class="text-tender-400 text-sm">{{ $record->start_date->format('F Y') }} -
                     {{ $record->end_date?->format('F Y') ?? "Present" }}
@@ -40,12 +35,7 @@
             <div class="mt-4">
                 <div class="flex gap-2 justify-between">
                     <h3>{{ $record->title }}</h3>
-                    @if($this->actions)
-                        <div class="flex gap-2">
-                            {{ ($this->editAction)(['experience_id' => $record->id]) }}
-                            {{ ($this->deleteAction)(['experience_id' => $record->id]) }}
-                        </div>
-                    @endif
+                    @include('livewire.partials.profile-actions')
                 </div>
                 <p class="mt-2">{{ $record->description }}</p>
             </div>
@@ -60,12 +50,23 @@
                         <div class="flex gap-2 justify-between mb-2">
                             <p><b>{{ $record->language->name }}</b>
                                 ({{ $record->spokenProficiency->name }})</p>
-                            @if($this->actions)
-                                <div class="flex gap-2">
-                                    {{ ($this->editAction)(['experience_id' => $record->id]) }}
-                                    {{ ($this->deleteAction)(['experience_id' => $record->id]) }}
-                                </div>
-                            @endif
+                            @include('livewire.partials.profile-actions')
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if($this->model == "recognition")
+        <div class="mt-4">
+            <ul class="mt-4 list-disc">
+                @foreach($records as $record)
+                    <li>
+                        <div class="flex gap-2 justify-between mb-2">
+                            <p><b>{{ $record->award }}</b>, {{ $record->organization }}
+                                , {{ $record->year }}</p>
+                            @include('livewire.partials.profile-actions')
                         </div>
                     </li>
                 @endforeach

@@ -21,7 +21,7 @@
     @filamentScripts
 </head>
 <body class="font-inter antialiased bg-gray-100 text-[#475569]">
-<section class="container cv my-16">
+<section class="container cv my-12">
 
     @if($actions)
         <div class="mx-auto text-center flex items-center gap-4 justify-center">
@@ -88,17 +88,14 @@
 
             <div class="content-grid grid grid-cols-[2fr_1fr] mt-12 gap-16">
                 <div class="cv-main">
-                    <livewire:experience-manager :title="'Professional Experience'" :user="$user" :actions="$actions"
-                                                 :model="'professional'"/>
+                    <livewire:experience-manager :user="$user" :actions="$actions" :model="'professional'"/>
                     <div class="mt-10">
-                        <livewire:experience-manager :user="$user" :actions="$actions" :model="'board'"
-                                                     :title="'Board Experience'"/>
+                        <livewire:experience-manager :user="$user" :actions="$actions" :model="'board'"/>
                     </div>
                 </div>
                 <div class="cv-sidebar">
                     <div class="side-category">
-                        <livewire:experience-manager :title="'Achievement'" :user="$user" :actions="$actions"
-                                                     :model="'achievement'"/>
+                        <livewire:experience-manager :user="$user" :actions="$actions" :model="'achievement'"/>
                     </div>
 
                     <div class="side-category">
@@ -113,15 +110,7 @@
                     </div>
 
                     <div class="side-category">
-                        <h2 class="mb-2">Recognitions</h2>
-                        <div class="mt-4">
-                            <ul class="mt-4 list-disc">
-                                @foreach($user->recognitions as $recognition)
-                                    <li><b>{{ $recognition->award }}</b>, {{ $recognition->organization }}
-                                        , {{ $recognition->year }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+                        <livewire:experience-manager :user="$user" :actions="$actions" :model="'recognition'"/>
                     </div>
 
                     <div class="side-category">
@@ -133,8 +122,7 @@
                     </div>
 
                     <div class="side-category">
-                        <livewire:experience-manager :title="'Languages'" :user="$user" :actions="$actions"
-                                                     :model="'language'"/>
+                        <livewire:experience-manager :user="$user" :actions="$actions" :model="'language'"/>
                     </div>
                 </div>
             </div>

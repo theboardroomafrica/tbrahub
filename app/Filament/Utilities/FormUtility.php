@@ -162,4 +162,19 @@ class FormUtility
                 ->required(),
         ];
     }
+
+    public static function Recognitions()
+    {
+        return [
+            Forms\Components\TextInput::make('award')
+                ->label('Award')
+                ->required(),
+            Forms\Components\TextInput::make('organization')
+                ->label('Organization')
+                ->required(),
+            Forms\Components\TextInput::make('year')
+                ->type('year')
+                ->required(),
+        ];
+    }
 }

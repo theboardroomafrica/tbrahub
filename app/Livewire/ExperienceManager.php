@@ -6,6 +6,7 @@ use App\Filament\Utilities\FormUtility;
 use App\Models\Achievement;
 use App\Models\BoardExperience;
 use App\Models\ProfessionalExperience;
+use App\Models\Recognition;
 use App\Models\UserLanguage;
 use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
@@ -24,12 +25,13 @@ class ExperienceManager extends Component implements HasForms, HasActions
     public $records;
     public $actions = false;
     public $model = "professional";
-    public $title = "Professional Experience";
+    public $title;
     public $user;
 
     public function mount()
     {
         $this->records = $this->modelOptions()[$this->model]["records"];
+        $this->title = $this->modelOptions()[$this->model]["title"];
     }
 
     public function getModel()
@@ -103,23 +105,34 @@ class ExperienceManager extends Component implements HasForms, HasActions
             "professional" => [
                 "records" => $this->user->orderedProfessionalExperiences(),
                 "model" => ProfessionalExperience::class,
+                "title" => "Professional Experience",
                 "form" => FormUtility::ProfersionalExperience()
             ],
             "board" => [
                 "records" => $this->user->orderedBoardExperiences(),
                 "model" => BoardExperience::class,
+                "title" => "Board Experience",
                 "form" => FormUtility::BoardExperience()
             ],
             "achievement" => [
                 "records" => $this->user->achievements()->get(),
                 "model" => Achievement::class,
+                "title" => "Achievement",
                 "form" => FormUtility::achievements(),
                 "width" => MaxWidth::ExtraLarge
             ],
             "language" => [
                 "records" => $this->user->languages()->get(),
                 "model" => UserLanguage::class,
+                "title" => "Languages",
                 "form" => FormUtility::Languages(),
+                "width" => MaxWidth::Large
+            ],
+            "recognition" => [
+                "records" => $this->user->recognitions()->get(),
+                "model" => Recognition::class,
+                "title" => "Recognition",
+                "form" => FormUtility::Recognitions(),
                 "width" => MaxWidth::Large
             ],
         ];

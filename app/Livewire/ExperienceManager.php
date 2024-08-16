@@ -77,7 +77,7 @@ class ExperienceManager extends Component implements HasForms, HasActions
                 $user = auth()->user();
                 $this->getModel()::create(['user_id' => $user->id, ...$data]);
 
-                $this->emit('refresh');
+                $this->records = $this->modelOptions()[$this->model]["records"];
             })
             ->icon('heroicon-o-plus');
     }
@@ -111,13 +111,13 @@ class ExperienceManager extends Component implements HasForms, HasActions
                 "form" => FormUtility::BoardExperience()
             ],
             "achievement" => [
-                "records" => $this->user->achievements,
+                "records" => $this->user->achievements()->get(),
                 "model" => Achievement::class,
                 "form" => FormUtility::achievements(),
                 "width" => MaxWidth::ExtraLarge
             ],
             "language" => [
-                "records" => $this->user->languages,
+                "records" => $this->user->languages()->get(),
                 "model" => UserLanguage::class,
                 "form" => FormUtility::Languages(),
                 "width" => MaxWidth::Large

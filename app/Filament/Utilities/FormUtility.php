@@ -5,6 +5,7 @@ namespace App\Filament\Utilities;
 use App\Models\BoardPosition;
 use App\Models\Committee;
 use Filament\Forms;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\Rule;
 
 class FormUtility
@@ -174,6 +175,23 @@ class FormUtility
                 ->required(),
             Forms\Components\TextInput::make('year')
                 ->type('year')
+                ->required(),
+        ];
+    }
+
+    public static function BoardSkills()
+    {
+        return [
+            Forms\Components\Select::make('skill_id')
+                ->label('Board Skill')
+                ->relationship('skill', 'name', fn(Builder $query) => $query->where('board_skill', 1))
+                ->validationMessages([
+                    'unique' => 'You have already selected this language.',
+                ])
+                ->rule(
+                    Rule::unique('user_skills', 'skill_id')
+                        ->where('user_id', auth()->id())
+                )
                 ->required(),
         ];
     }

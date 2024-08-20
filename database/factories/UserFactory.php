@@ -16,6 +16,7 @@ use App\Models\Recognition;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserIndustry;
+use App\Models\UserSkill;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -137,6 +138,18 @@ class UserFactory extends Factory
                     'title' => ucfirst(fake()->words(3, true)),
                     'description' => fake()->paragraph(),
                     'date' => fake()->date(),
+                ]);
+            }
+
+            $boardSkills = Skill::where('board_skill', true)
+                ->inRandomOrder()
+                ->take(rand(1, 5))
+                ->get();
+
+            foreach ($boardSkills as $skill) {
+                UserSkill::create([
+                    'user_id' => $user->id,
+                    'skill_id' => $skill->id,
                 ]);
             }
         });

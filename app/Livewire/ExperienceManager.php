@@ -8,6 +8,7 @@ use App\Models\BoardExperience;
 use App\Models\ProfessionalExperience;
 use App\Models\Recognition;
 use App\Models\UserLanguage;
+use App\Models\UserSkill;
 use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
@@ -55,6 +56,7 @@ class ExperienceManager extends Component implements HasForms, HasActions
             ->form([
                 ...$this->getFormUtility()
             ])
+            ->tooltip("Edit " . $this->title)
             ->color('info')
             ->modalWidth($this->getWidth())
             ->iconButton()
@@ -71,6 +73,7 @@ class ExperienceManager extends Component implements HasForms, HasActions
             ->form([
                 ...$this->getFormUtility()
             ])
+            ->tooltip("Add " . $this->title)
             ->iconButton()
             ->modalWidth($this->getWidth())
             ->extraAttributes(['class' => 'btn-tender text-white hover:text-white'])
@@ -88,6 +91,7 @@ class ExperienceManager extends Component implements HasForms, HasActions
     {
         return Action::make('delete')
             ->requiresConfirmation()
+            ->tooltip("Delete " . $this->title)
             ->iconButton()
             ->icon('heroicon-o-trash')
             ->color('danger')
@@ -124,7 +128,7 @@ class ExperienceManager extends Component implements HasForms, HasActions
             "language" => [
                 "records" => $this->user->languages()->get(),
                 "model" => UserLanguage::class,
-                "title" => "Languages",
+                "title" => "Language",
                 "form" => FormUtility::Languages(),
                 "width" => MaxWidth::Large
             ],
@@ -133,6 +137,13 @@ class ExperienceManager extends Component implements HasForms, HasActions
                 "model" => Recognition::class,
                 "title" => "Recognition",
                 "form" => FormUtility::Recognitions(),
+                "width" => MaxWidth::Large
+            ],
+            "board_skill" => [
+                "records" => $this->user->boardSkills()->get(),
+                "model" => UserSkill::class,
+                "title" => "Board Skill",
+                "form" => FormUtility::BoardSkills(),
                 "width" => MaxWidth::Large
             ],
         ];

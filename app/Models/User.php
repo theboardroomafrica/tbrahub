@@ -112,4 +112,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Achievement::class, 'user_id');
     }
+
+    public function boardSkills()
+    {
+        return $this->hasMany(UserSkill::class);
+    }
 }

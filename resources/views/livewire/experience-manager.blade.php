@@ -74,5 +74,20 @@
         </div>
     @endif
 
+    @if($this->model == "board_skill")
+        <div class="mt-4">
+            <ul class="mt-4 list-disc">
+                @foreach($records as $record)
+                    <li>
+                        <div class="flex gap-2 justify-between mb-2">
+                            <p><b>{{ $record->skill->name }}</b></p>
+                            @include('livewire.partials.profile-actions')
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <x-filament-actions::modals/>
 </div>

@@ -25,14 +25,14 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        foreach (skills() as $skill) Skill::create(['name' => $skill]);
+        foreach (skills() as $skill) Skill::create(['name' => $skill, "board_skill" => 1]);
 
         foreach (industries() as $industry) Industry::create(['name' => $industry]);
 
         foreach (gender() as $gender) Gender::create(['name' => $gender]);
 
         foreach (interests() as $interest) Interest::create(['name' => $interest]);
-        
+
         foreach (languages() as $language) Language::create(['name' => $language]);
 
         foreach (languageProfiencies() as $languageProfiency) LanguageProficiency::create(["name" => $languageProfiency]);

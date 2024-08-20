@@ -39,6 +39,8 @@ class UserFactory extends Factory
         return [
             'first_name' => $genderId == 2 ? fake()->firstNameFemale() : fake()->firstNameMale(),
             'last_name' => fake()->lastName(),
+            'title' => fake()->jobTitle,
+            'address' => fake()->address,
             'email' => fake()->unique()->safeEmail(),
             'email2' => fake()->safeEmail(),
             'email_verified_at' => fake()->dateTime(),

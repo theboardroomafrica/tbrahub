@@ -63,25 +63,9 @@
     @endif
 
     <div class="border border-gray-300 bg-white">
-        <div class="p-12 bg-[#F3F7FA] flex justify-between items-center">
-            <div class="flex gap-8 items-center">
-                <img src="https://placehold.co/100" class="rounded-full">
-                <div>
-                    <h1 class="text-3xl font-bold">{{ $user->name }}</h1>
-                    <p class="text-xl">Experienced Financial Industry Leader</p>
-                </div>
-            </div>
-            <div class="contact-details text-right">
-                {{-- <a href="#" class="btn btn-mustard ml-auto inline-block">Connect with me</a> --}}
-                <p>{{ fake()->e164PhoneNumber() }}</p>
-                <p>{{ fake()->companyEmail() }}</p>
-                <p>{{ fake()->city }}, {{ fake()->country() }}</p>
-                <a href="{{ $user->linkedin }}" class="mt-4 font-bold text-sm text-blue-500 inline-block">LinkedIn
-                    Profile</a>
-            </div>
-        </div>
+        <livewire:edit-info :user="$user" :model="'others'"/>
         <div class="p-12">
-            <livewire:edit-bio :user="$user"/>
+            <livewire:edit-info :user="$user" :model="'bio'"/>
 
             <div class="content-grid grid grid-cols-[2fr_1fr] mt-12 gap-16">
                 <div class="cv-main">

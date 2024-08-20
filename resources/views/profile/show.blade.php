@@ -81,10 +81,7 @@
             </div>
         </div>
         <div class="p-12">
-            <div class="profile-intro">
-                <h2>Profile summary</h2>
-                <p class="intro mt-4">{{ $user->bio }}</p>
-            </div>
+            <livewire:edit-bio :user="$user"/>
 
             <div class="content-grid grid grid-cols-[2fr_1fr] mt-12 gap-16">
                 <div class="cv-main">
@@ -99,14 +96,7 @@
                     </div>
 
                     <div class="side-category">
-                        <h2 class="mb-2">Board Skills</h2>
-                        <div class="mt-4">
-                            <ul class="mt-4 list-disc">
-                                @foreach(range(1, 4) as $catItem)
-                                    <li>{{ fake()->sentence(6) }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
+                        <livewire:experience-manager :user="$user" :actions="$actions" :model="'board_skill'"/>
                     </div>
 
                     <div class="side-category">

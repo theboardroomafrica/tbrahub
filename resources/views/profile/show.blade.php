@@ -63,7 +63,6 @@
     @endif
 
     <div class="border border-gray-300 bg-white">
-        <livewire:profile-pic :user="$user"/>
         <livewire:edit-info :user="$user" :model="'others'"/>
         <div class="p-12">
             <livewire:edit-info :user="$user" :model="'bio'"/>

@@ -3,7 +3,12 @@
     @if($this->model == "others")
         <div class="p-12 bg-[#F3F7FA] flex justify-between items-center">
             <div class="flex gap-8 items-center">
-                <img src="https://placehold.co/100" class="rounded-full">
+                <div class="relative w-28 h-28 group profilePic rounded-full rounded overflow-hidden bg-white">
+                    <img src="{{ $user->avatar }}" class="w-28 h-28 object-cover">
+                    <div
+                        class="inset-0 absolute text-white items-center justify-center text-white bg-black bg-opacity-50 p-2 rounded cursor-pointer hidden group-hover:flex"
+                    >{{ $this->avatarAction }}</div>
+                </div>
                 <div>
                     <div class="flex gap-4 items-center">
                         <h1 class="text-3xl font-bold">{{ $user->name }}</h1> {{ $this->editAction }}

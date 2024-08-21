@@ -88,4 +88,8 @@
     .prose ul + p {
         @apply mt-4
     }
+
+    .profilePic svg {
+        @apply text-white h-8 w-8
+    }
 }

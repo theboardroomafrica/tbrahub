@@ -10,7 +10,7 @@
                     {{ __('Log Out') }}
                 </button>
             </form>
-            <a href="#" class="font-bold -md:pb-1 -md:text-right">View profile</a>
+            <a href="{{ route('profile.index') }}" class="font-bold -md:pb-1 -md:text-right">View profile</a>
             <div class="flex gap-2">
                 <a href="#">
                     <x-heroicon-o-bell-alert

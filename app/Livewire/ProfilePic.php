@@ -9,9 +9,9 @@ use Filament\Actions\EditAction;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Support\Enums\IconSize;
 use Filament\Support\Enums\MaxWidth;
 use Livewire\Component;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ProfilePic extends Component implements HasForms, HasActions
 {
@@ -25,15 +25,20 @@ class ProfilePic extends Component implements HasForms, HasActions
         return EditAction::make()
             ->form([
                 SpatieMediaLibraryFileUpload::make('avatar')
-                    // ->acceptedFileTypes(['image/*'])
+                    ->label("Update Photo")
+                    ->imageEditor()
+                    ->imageCropAspectRatio('1:1')
+                    ->imagePreviewHeight(250)
                     ->collection('avatars')
             ])
-            ->tooltip("Edit image")
+            ->tooltip("Update Photo")
             ->color('info')
-            ->modalWidth(MaxWidth::Large)
+            ->iconSize(IconSize::Large)
+            ->modalHeading("")
+            ->modalWidth(MaxWidth::Small)
             ->iconButton()
-            ->icon('heroicon-o-pencil')
-            ->record(new Media());
+            ->icon('heroicon-o-camera')
+            ->record($this->user);
     }
 
     public function render()

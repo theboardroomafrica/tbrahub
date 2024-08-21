@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use HasFactory, Notifiable, HasUuids;
+    use HasFactory, Notifiable, HasUuids, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -116,5 +118,15 @@ class User extends Authenticatable
     public function boardSkills()
     {
         return $this->hasMany(UserSkill::class);
+    }
+
+    public function getFilesAttribute()
+    {
+        return $this->getMedia('*');
+    }
+
+    public function getFileUrlsAttribute()
+    {
+        return $this->files->implode('original_url', ', ');
     }
 }

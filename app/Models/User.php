@@ -120,6 +120,11 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(UserSkill::class);
     }
 
+    public function getAvatarAttribute()
+    {
+        return $this->getFirstMediaUrl('avatars') ?: "https://via.placeholder.com/300";
+    }
+
     public function getFilesAttribute()
     {
         return $this->getMedia('*');
@@ -128,5 +133,10 @@ class User extends Authenticatable implements HasMedia
     public function getFileUrlsAttribute()
     {
         return $this->files->implode('original_url', ', ');
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('avatars');
     }
 }

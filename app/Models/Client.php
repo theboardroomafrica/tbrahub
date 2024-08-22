@@ -32,4 +32,9 @@ class Client extends Authenticatable implements FilamentUser
     {
         return $this->isApproved;
     }
+
+    public function growthStage()
+    {
+        return $this->belongsTo(GrowthStage::class);
+    }
 }

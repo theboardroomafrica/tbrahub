@@ -6,6 +6,7 @@ use App\Models\BoardPosition;
 use App\Models\Committee;
 use App\Models\Country;
 use App\Models\Gender;
+use App\Models\GrowthStage;
 use App\Models\Industry;
 use App\Models\Interest;
 use App\Models\Language;
@@ -40,6 +41,8 @@ class DatabaseSeeder extends Seeder
         foreach (boardPositions() as $position) BoardPosition::create(['title' => $position]);
 
         foreach (committees() as $committee) Committee::create(['name' => $committee]);
+
+        foreach (['Startup', 'Growth', 'Established'] as $name) GrowthStage::create(compact('name'));
 
         $jsonFile = public_path('countries.json');
         $jsonData = file_get_contents($jsonFile);

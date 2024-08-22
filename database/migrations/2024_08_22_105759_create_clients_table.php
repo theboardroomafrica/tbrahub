@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('company')->nullable();
             $table->string('role')->nullable();
             $table->string('growth_stage')->nullable();
+            $table->foreignId('growth_stage_id')->nullable()->references('id')->on('growth_stages')->onDelete('set null');
             $table->boolean('is_founder')->default(0);
             $table->boolean('has_board_experience')->default(0);
             $table->boolean('isApproved')->default(0);
@@ -26,8 +27,8 @@ return new class extends Migration {
             $table->unsignedSmallInteger('indirect_reports')->nullable();
             $table->text('bio')->nullable();
             $table->string('linkedin_url')->nullable();
-            $table->string('nationality')->nullable();
-            $table->string('other_nationality')->nullable();
+            $table->foreignId('nationality_id')->nullable();
+            $table->foreignId('other_nationality_id')->nullable();
             $table->string('password');
             $table->timestamps();
         });

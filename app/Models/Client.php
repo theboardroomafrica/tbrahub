@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Client extends Authenticatable
+class Client extends Authenticatable implements FilamentUser
 {
     use HasFactory, HasUuids;
 
@@ -29,6 +30,6 @@ class Client extends Authenticatable
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return $this->isApproved;
     }
 }

@@ -30,7 +30,7 @@ class Client extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->isApproved;
+        return true;
     }
 
     public function growthStage()

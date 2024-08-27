@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\ClientAuth\Register;
+use App\Http\Middleware\VerifyClientApproval;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -24,9 +26,10 @@ class ClientPanelProvider extends PanelProvider
     {
         return $panel
             ->id('client')
-            ->path('clients')
             ->login()
+            ->path('clients')
             ->authGuard('client')
+            ->registration(Register::class)
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -50,6 +53,7 @@ class ClientPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                VerifyClientApproval::class
             ])
             ->authMiddleware([
                 Authenticate::class,

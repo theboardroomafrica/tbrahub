@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
-            $table->string('phone_number');
+            $table->string('phone_number')->nullable();
             $table->string('company')->nullable();
             $table->string('role')->nullable();
             $table->string('growth_stage')->nullable();
@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->boolean('is_founder')->default(0);
             $table->boolean('has_board_experience')->default(0);
             $table->boolean('isApproved')->default(0);
+            $table->boolean('hasActiveSubscription')->default(0);
             $table->unsignedSmallInteger('direct_reports')->nullable();
             $table->unsignedSmallInteger('indirect_reports')->nullable();
             $table->text('bio')->nullable();

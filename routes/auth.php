@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     // add first_name, last_name if register is included
-    
+
     // Route::get('register', [RegisteredUserController::class, 'create'])
     //             ->name('register');
     //
@@ -57,4 +57,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
+
 });
+
+Route::post('clients/destroy', [\App\Http\Controllers\ClientController::class, 'logout'])
+    ->name('clients.destroy');

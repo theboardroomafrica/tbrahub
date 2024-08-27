@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\ClientAuth\Register;
+use App\Http\Middleware\ClientActiveSubscription;
 use App\Http\Middleware\VerifyClientApproval;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -53,7 +54,8 @@ class ClientPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                VerifyClientApproval::class
+                VerifyClientApproval::class,
+                ClientActiveSubscription::class
             ])
             ->authMiddleware([
                 Authenticate::class,

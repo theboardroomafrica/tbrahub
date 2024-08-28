@@ -11,6 +11,9 @@ use App\Models\Industry;
 use App\Models\Interest;
 use App\Models\Language;
 use App\Models\LanguageProficiency;
+use App\Models\OpportunityStage;
+use App\Models\OpportunityType;
+use App\Models\RevenueCategory;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -43,6 +46,16 @@ class DatabaseSeeder extends Seeder
         foreach (committees() as $committee) Committee::create(['name' => $committee]);
 
         foreach (['Startup', 'Growth', 'Established'] as $name) GrowthStage::create(compact('name'));
+
+        foreach ([1 => "Long list", "Short list", "Interview", "Appointed"] as $k => $stage) OpportunityStage::create(["name" => $stage, "sort" => $k]);
+
+        foreach (["< $100,000", "< $ 500,000", "< $ 1,000,000", "< $ 10,000,000", "< $ 50,000,000", "< $ 100,000,000", "< $ 500,000,000", "Over $ 500,000,000", "N/A"] as $revenue) {
+            RevenueCategory::create(["name" => $revenue]);
+        }
+
+        foreach (["Non-Executive Director", "Executive Director", "Chairperson", "Committee Chair", "Advisory Board", "Board Advisor"] as $opportunity) {
+            OpportunityType::create(["name" => $opportunity]);
+        }
 
         $jsonFile = public_path('countries.json');
         $jsonData = file_get_contents($jsonFile);

@@ -11,6 +11,11 @@ class OpportunityStage extends Model
 
     protected $guarded = [];
 
+    public function newQuery($excludeDeleted = true)
+    {
+        return parent::newQuery($excludeDeleted)->orderBy('sort');
+    }
+
     public function opportunities()
     {
         return $this->hasMany(Opportunity::class, 'stage_id');

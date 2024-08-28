@@ -15,7 +15,7 @@ class ClientActiveSubscription
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->user('client')->hasActiveSubscription) {
+        if (auth()->guard('client')->check() && !$request->user('client')->hasActiveSubscription) {
             return redirect()->route('clients.pricing');
         }
 

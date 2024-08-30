@@ -20,7 +20,6 @@ return new class extends Migration {
             $table->foreignUuid('client_id')->references('id')->on('clients');
             $table->foreignId('revenue_id')->nullable()->references('id')->on('revenue_categories')->onDelete('set null');
             $table->foreignId('type_id')->nullable()->references('id')->on('opportunity_types')->onDelete('cascade');
-            $table->foreignId('stage_id')->nullable()->references('id')->on('opportunity_stages')->onDelete('cascade');
             $table->timestamps();
         });
     }

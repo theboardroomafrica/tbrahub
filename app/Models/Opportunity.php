@@ -17,11 +17,6 @@ class Opportunity extends Model
         return $this->belongsTo(OpportunityType::class, 'type_id');
     }
 
-    public function stage()
-    {
-        return $this->belongsTo(OpportunityStage::class, 'stage_id');
-    }
-
     public function revenue()
     {
         return $this->belongsTo(RevenueCategory::class, 'revenue_id');
@@ -30,5 +25,10 @@ class Opportunity extends Model
     public function client()
     {
         return $this->belongsTo(Client::class, 'client_id');
+    }
+
+    public function applications()
+    {
+        return $this->hasMany(OpportunityApplication::class, 'opportunity_id');
     }
 }

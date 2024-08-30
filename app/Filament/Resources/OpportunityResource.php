@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\OpportunityResource\Pages;
-use App\Filament\Resources\OpportunityResource\RelationManagers;
+use App\Filament\Resources\OpportunityResource\RelationManagers\ApplicationsRelationManager;
 use App\Models\Opportunity;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -44,9 +44,6 @@ class OpportunityResource extends Resource
                 Forms\Components\TextInput::make('type_id')
                     ->numeric()
                     ->default(null),
-                Forms\Components\TextInput::make('stage_id')
-                    ->numeric()
-                    ->default(null),
             ]);
     }
 
@@ -58,19 +55,12 @@ class OpportunityResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('company')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('website')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('employees')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('revenue.name')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('type.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('stage.name')
+                Tables\Columns\TextColumn::make('applications_count')
+                    ->counts('applications')
+                    ->label('#')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -98,7 +88,7 @@ class OpportunityResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ApplicationsRelationManager::class
         ];
     }
 
@@ -106,8 +96,9 @@ class OpportunityResource extends Resource
     {
         return [
             'index' => Pages\ListOpportunities::route('/'),
+            'view' => Pages\ViewOpportunity::route('/{record}'),
             'create' => Pages\CreateOpportunity::route('/create'),
-            'edit' => Pages\EditOpportunity::route('/{record}/edit'),
+            // 'edit' => Pages\EditOpportunity::route('/{record}/edit'),
         ];
     }
 }

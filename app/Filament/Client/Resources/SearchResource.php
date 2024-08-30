@@ -47,9 +47,6 @@ class SearchResource extends Resource
                 Forms\Components\TextInput::make('type_id')
                     ->numeric()
                     ->default(null),
-                Forms\Components\TextInput::make('stage_id')
-                    ->numeric()
-                    ->default(null),
             ]);
     }
 
@@ -71,9 +68,6 @@ class SearchResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('type.name')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('stage.name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')

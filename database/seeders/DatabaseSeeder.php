@@ -11,6 +11,8 @@ use App\Models\Industry;
 use App\Models\Interest;
 use App\Models\Language;
 use App\Models\LanguageProficiency;
+use App\Models\Opportunity;
+use App\Models\OpportunityApplication;
 use App\Models\OpportunityStage;
 use App\Models\OpportunityType;
 use App\Models\RevenueCategory;
@@ -71,5 +73,15 @@ class DatabaseSeeder extends Seeder
         }
 
         User::factory(10)->create();
+
+        foreach (Opportunity::all() as $opportunity) {
+            foreach (User::take(mt_rand(500, 1500))->get() as $user) {
+                OpportunityApplication::create([
+                    "user_id" => $user->id,
+                    "opportunity_id" => $opportunity->id,
+                    "stage_id" => mt_rand(1, 3)
+                ]);
+            }
+        }
     }
 }

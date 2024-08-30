@@ -28,6 +28,13 @@ class ProfessionalExperience extends Model
             ->orderBy('end_date', 'asc');
     }
 
+    public function newQuery($excludeDeleted = true)
+    {
+        return parent::newQuery($excludeDeleted)->orderBy('start_date', 'desc')
+            ->orderByRaw('CASE WHEN end_date IS NULL THEN 1 ELSE 0 END')
+            ->orderBy('end_date', 'asc');
+    }
+
     public function getJobTitleAttribute()
     {
         return $this->position;

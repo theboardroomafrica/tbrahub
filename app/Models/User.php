@@ -85,6 +85,11 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(ProfessionalExperience::class);
     }
 
+    public function getCurrentProfessionalExperienceAttribute()
+    {
+        return $this->professionalExperiences()->first();
+    }
+
     public function orderedProfessionalExperiences()
     {
         return $this->professionalExperiences()->ordered()->get();

@@ -22,6 +22,7 @@ class ListClients extends ListRecords
     public function getTabs(): array
     {
         return [
+            'all' => Tab::make(),
             'approved' => Tab::make()
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('isApproved', 1)),
             'pending' => Tab::make()

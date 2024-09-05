@@ -2,9 +2,12 @@
 
 namespace App\Filament\Client\Resources;
 
+use App\Filament\Client\Resources\SearchMemberResource\Pages\ListSearchMembers;
 use App\Filament\Client\Resources\SearchResource\Pages;
 use App\Filament\Client\Resources\SearchResource\RelationManagers;
 use App\Models\Opportunity;
+use App\Models\OpportunityType;
+use App\Models\RevenueCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -25,6 +28,7 @@ class SearchResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Opportunity title')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('company')
@@ -36,18 +40,19 @@ class SearchResource extends Resource
                 Forms\Components\TextInput::make('employees')
                     ->numeric()
                     ->default(null),
-                Forms\Components\Textarea::make('info')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('client_id')
+                Forms\Components\Hidden::make('client_id')
+                    ->default(request()->user('client')),
+                Forms\Components\Select::make('revenue_id')
+                    ->label("Revenue")
                     ->required()
-                    ->maxLength(36),
-                Forms\Components\TextInput::make('revenue_id')
-                    ->numeric()
-                    ->default(null),
-                Forms\Components\TextInput::make('type_id')
-                    ->numeric()
-                    ->default(null),
-            ]);
+                    ->options(RevenueCategory::pluck('name', 'id')),
+                Forms\Components\Select::make('type_id')
+                    ->label("Opportunity type")
+                    ->required()
+                    ->options(OpportunityType::pluck('name', 'id')),
+                Forms\Components\RichEditor::make('info')
+                    ->columnSpanFull(),
+            ])->columns(3);
     }
 
     public static function table(Table $table): Table
@@ -79,6 +84,7 @@ class SearchResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->recordUrl(fn($record) => route('filament.client.resources.searches.connections', ['parent' => $record]))
             ->filters([
                 //
             ])
@@ -105,6 +111,8 @@ class SearchResource extends Resource
             'index' => Pages\ListSearches::route('/'),
             'create' => Pages\CreateSearch::route('/create'),
             'edit' => Pages\EditSearch::route('/{record}/edit'),
+            'view' => Pages\ViewSearch::route('/{record}'),
+            'connections' => ListSearchMembers::route('/{parent}/connections'),
         ];
     }
 

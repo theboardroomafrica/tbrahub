@@ -144,4 +144,65 @@ class User extends Authenticatable implements HasMedia
     {
         $this->addMediaCollection('avatars');
     }
+
+    public function opportunityApplications()
+    {
+        return $this->hasMany(OpportunityApplication::class, 'user_id');
+    }
+
+    public function opportunityConnections()
+    {
+        return $this->hasMany(OpportunityConnection::class, 'user_id');
+    }
+
+    public function opportunityNotes()
+    {
+        return $this->hasMany(OpportunityNote::class, 'user_id');
+    }
+
+    public function opportunityConnection($opportunity_id)
+    {
+        return $this->opportunityConnections()->where('opportunity_id', $opportunity_id)->first();
+    }
+
+    public function createOpportunityConnection($opportunity_id)
+    {
+        $connection = OpportunityConnection::create([
+            'user_id' => $this->id,
+            'opportunity_id' => $opportunity_id
+        ]);
+        return $connection;
+    }
+
+    public function createOrDeleteOpportunityBookmark($opportunity_id)
+    {
+        $bookmark = $this->opportunityBookmark($opportunity_id)->first();
+
+        if ($bookmark) return $bookmark->delete();
+
+        return OpportunityBookmark::create([
+            'user_id' => $this->id,
+            'opportunity_id' => $opportunity_id
+        ]);
+    }
+
+    public function opportunityNote($opportunity_id)
+    {
+        return $this->opportunityNotes()->where('opportunity_id', $opportunity_id)->first();
+    }
+
+    public function updateOrCreateOpportunityNote($opportunity_id, $note)
+    {
+        return OpportunityNote::updateOrCreate([
+            'user_id' => $this->id,
+            'opportunity_id' => $opportunity_id
+        ], [
+            'note' => $note
+        ]);
+    }
+
+    public function opportunityBookmark()
+    {
+        return $this->hasOne(OpportunityBookmark::class);
+    }
 }

@@ -78,23 +78,26 @@ class ClientResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('company')
+                    ->searchable()
                     ->label('Company'),
                 Tables\Columns\TextColumn::make('first_name')
+                    ->searchable()
                     ->label('First Name'),
                 Tables\Columns\TextColumn::make('last_name')
+                    ->searchable()
                     ->label('Last Name'),
                 Tables\Columns\TextColumn::make('email')
+                    ->searchable()
                     ->label('Email'),
                 Tables\Columns\TextColumn::make('phone_number')
                     ->label('Phone Number'),
-                // Tables\Columns\TextColumn::make('role')
-                //     ->label('Role'),
-                // Tables\Columns\TextColumn::make('growth_stage')
-                //     ->label('Growth Stage'),
-                // Tables\Columns\BooleanColumn::make('isApproved')
-                //     ->label('Approved')
-                //     ->trueColor('success')  // Customize the color if needed
-                //     ->falseColor('danger'),  // Customize the color if needed
+                Tables\Columns\ToggleColumn::make('isApproved'),
+                Tables\Columns\TextColumn::make('role')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label('Role'),
+                Tables\Columns\TextColumn::make('growth_stage')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label('Growth Stage'),
             ])
             ->filters([
                 //

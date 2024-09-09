@@ -2,6 +2,7 @@
 
 namespace App\Filament\Client\Resources\SearchMemberResource\Pages;
 
+use App\Filament\Actions\Search\ViewCV;
 use App\Filament\Client\Resources\SearchMemberResource;
 use App\Filament\Client\Resources\SearchResource;
 use App\Models\Opportunity;
@@ -13,6 +14,7 @@ use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\View\View;
 
 class ListSearchMembers extends ListRecords
 {
@@ -83,6 +85,16 @@ class ListSearchMembers extends ListRecords
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make('cv')
+                    ->modalHeading('')
+                    ->icon('heroicon-m-user-circle')
+                    ->label('')
+                    ->modalWidth(MaxWidth::SevenExtraLarge)
+                    ->slideOver()
+                    ->modalContent(fn($record): View => view(
+                        'filament.pages.search.cv',
+                        ['record' => $record],
+                    )),
                 Tables\Actions\Action::make('connect')
                     ->icon(fn($record) => $record->opportunityConnection($this->parent) ? 'heroicon-m-envelope' : 'heroicon-o-envelope')
                     ->label('')

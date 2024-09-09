@@ -41,7 +41,7 @@ class SearchResource extends Resource
                     ->numeric()
                     ->default(null),
                 Forms\Components\Hidden::make('client_id')
-                    ->default(request()->user('client')),
+                    ->default(request()->user('client')->id),
                 Forms\Components\Select::make('revenue_id')
                     ->label("Revenue")
                     ->required()

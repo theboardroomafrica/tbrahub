@@ -1,12 +1,13 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\ClientAuthMiddleware;
 use App\Http\Middleware\VerifyClientApproval;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('/', function (\App\Repository\PaymentGateway $paymentGateway) {
     return redirect('/login');
 });
 
@@ -22,6 +23,12 @@ Route::middleware(ClientAuthMiddleware::class)->controller(ClientController::cla
     Route::get('/clients/status', 'status')->name('clients.status');
     Route::get('/clients/pay', 'pay')->name('clients.pay');
     Route::get('/clients/pricing', 'pricing')->name('clients.pricing')->middleware([VerifyClientApproval::class]);
+});
+
+Route::controller(PaymentController::class)->name('payment.')->prefix('/payment')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/success', 'success')->name("success");
+    Route::get('/cancel', 'cancel')->name("cancel");
 });
 
 Route::middleware('auth')->group(function () {

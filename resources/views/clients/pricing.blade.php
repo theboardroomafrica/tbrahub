@@ -81,7 +81,7 @@
                         @endforeach
                     </ul>
                     <a class="inline-block px-5 py-3 font-semibold tracking-wider text-center rounded bg-tender text-gray-50"
-                       href="{{ route('clients.pay') }}">Get Started</a></div>
+                       href="{{ route('payment.index', ["amount" => 2500]) }}">Get Started</a></div>
             </div>
             <div class="flex w-full mb-8 lg:mb-0">
                 <div class="flex flex-col p-6 space-y-6 rounded shadow sm:p-8 bg-tender text-gray-50 ">
@@ -106,7 +106,7 @@
                         @endforeach
                     </ul>
                     <a class="inline-block px-5 py-3 font-semibold tracking-wider text-center rounded bg-white text-tender"
-                       href="{{ route('clients.pay') }}">Get Started</a></div>
+                       href="{{ route('payment.index', ["amount" => 10000]) }}">Get Started</a></div>
             </div>
             <div class="flex w-full mb-8 lg:mb-0">
                 <div class="flex flex-col p-6 space-y-6 rounded shadow sm:p-8 bg-gray-50 ">

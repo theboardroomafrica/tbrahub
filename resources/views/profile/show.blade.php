@@ -63,9 +63,9 @@
     @endif
 
     <div class="border border-gray-300 bg-white">
-        <livewire:edit-info :user="$user" :model="'others'"/>
+        <livewire:edit-info :user="$user" :model="'others'" :actions="$actions"/>
         <div class="p-12">
-            <livewire:edit-info :user="$user" :model="'bio'"/>
+            <livewire:edit-info :user="$user" :model="'bio'" :actions="$actions"/>
 
             <div class="content-grid grid grid-cols-[2fr_1fr] mt-12 gap-16">
                 <div class="cv-main">

@@ -21,6 +21,7 @@ class EditInfo extends Component implements HasForms, HasActions
 
     public $user;
     public $model = "bio";
+    public $actions = false;
 
     public function editAction(): Action
     {

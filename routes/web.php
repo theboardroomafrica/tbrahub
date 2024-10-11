@@ -19,6 +19,10 @@ Route::get('/cv', function () {
     return view('cv');
 });
 
+Route::get('/creg', function () {
+    return view('creg');
+});
+
 Route::middleware(ClientAuthMiddleware::class)->controller(ClientController::class)->group(function () {
     Route::get('/clients/status', 'status')->name('clients.status');
     Route::get('/clients/pay', 'pay')->name('clients.pay');

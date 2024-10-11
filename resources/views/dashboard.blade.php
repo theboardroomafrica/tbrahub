@@ -47,9 +47,9 @@
 
                 <div class="flex justify-between mb-4 mt-16">
                     <h3 class="font-bold text-md">
-                        Board Opportunities
+                        Events and programmes
                     </h3>
-                    <a href="#" class="btn btn-tender -mt-3">All Opportunities</a>
+                    <a href="#" class="btn btn-tender -mt-3">All Events / Programmes</a>
                 </div>
                 <div class="opportunities grid grid-cols-2 gap-12">
                     <div class="border border-gray-200 rounded-lg overflow-hidden shadow-sm bg-white">

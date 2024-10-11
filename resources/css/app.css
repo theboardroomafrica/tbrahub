@@ -92,4 +92,25 @@
     .profilePic svg {
         @apply text-white h-8 w-8
     }
+
+    .register-client .fi-section-content {
+        @apply p-0
+    }
+
+    .register-client .fi-section {
+        @apply bg-transparent border-b pb-8 rounded-none;
+        box-shadow: none;
+    }
+
+    .register-client .fi-input {
+        /*@apply bg-gray-100*/
+    }
+
+    .register-client .fi-input-wrp {
+        @apply rounded-none
+    }
+
+    .register-client .fi-fo-component-ctn {
+        @apply gap-y-6 gap-x-10
+    }
 }

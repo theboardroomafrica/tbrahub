@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Client;
 use App\Models\GrowthStage;
+use App\Notifications\NotifyClientRegistration;
 use Filament\Forms;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -38,7 +39,6 @@ class RegisterClient extends Component implements HasForms
                         Forms\Components\TextInput::make('company')
                             ->label('Company / Legal Entity')
                             ->placeholder('Enter company')
-                            ->email()
                             ->required(),
                         Forms\Components\TextInput::make('role')
                             ->placeholder('Enter role or title')
@@ -52,8 +52,7 @@ class RegisterClient extends Component implements HasForms
                             ->url()
                             ->required(),
                     ])
-                    ->columns(3)
-                    ->columnSpan(2),
+                    ->columns(3),
                 Forms\Components\Section::make('')
                     ->schema([
                         Forms\Components\Select::make('org_type')
@@ -69,8 +68,39 @@ class RegisterClient extends Component implements HasForms
                             ->label("Organisation Type"),
                         Forms\Components\Select::make('sector_id')
                             ->required()
+                            ->options([
+                                "Agriculture & Farming",
+                                "Automotive",
+                                "Aerospace & Defense",
+                                "Banking & Financial Services",
+                                "Biotechnology & Pharmaceuticals",
+                                "Chemicals & Petrochemicals",
+                                "Construction & Real Estate",
+                                "Consumer Goods",
+                                "Education",
+                                "Energy",
+                                "Entertainment & Media",
+                                "Healthcare & Medical Services",
+                                "Hospitality & Tourism",
+                                "Information Technology (IT)",
+                                "Legal Services",
+                                "Logistics & Transportation",
+                                "Manufacturing",
+                                "Mining & Metals",
+                                "Retail",
+                                "Telecommunications",
+                                "Utilities",
+                                "Agriculture",
+                                "Financial Services",
+                                "Healthcare",
+                                "Technology",
+                                "Construction",
+                                "Transportation & Logistics",
+                                "Real Estate",
+                                "Government & Public Sector",
+                            ])
                             ->label('Sector'),
-                        Forms\Components\Select::make('type_id')
+                        Forms\Components\Select::make('for_profit')
                             ->required()
                             ->options([
                                 "For profit",
@@ -82,17 +112,9 @@ class RegisterClient extends Component implements HasForms
                             ->options(fn() => GrowthStage::pluck('name', 'id'))
                             ->label('Growth Stage'),
                     ])
-                    ->columns(4)
-                    ->columnSpan(2),
+                    ->columns(4),
                 Forms\Components\Section::make('')
                     ->schema([
-                        // Forms\Components\Toggle::make('investment_firm')
-                        //     ->label('Is your company an investment firm?'),
-                        // Forms\Components\Toggle::make('recruitment_agency')
-                        //     ->label('Is your company a recruitment agency?'),
-                        Forms\Components\Toggle::make('mulitple_search')
-                            ->label('Will you be conducting searches for your portfolio companies or clients?')
-                            ->columnSpan(3),
                         Forms\Components\Select::make('portfolios')
                             ->options([
                                 "None",
@@ -103,13 +125,17 @@ class RegisterClient extends Component implements HasForms
                                 "<40",
                                 "<50",
                                 "50+",])
-                            ->label('Number of portfolio companies / clients'),
+                            ->label('Number of portfolio companies / clients')
+                            ->reactive(),
                         Forms\Components\TextInput::make('parent_company')
-                            ->placeholder('Parent Company')
-                            ->required(),
+                            ->placeholder('Parent Company (if any)'),
+                        Forms\Components\Hidden::make(''),
+                        Forms\Components\Toggle::make('mulitple_search')
+                            ->label('Will you be conducting searches for your portfolio companies or clients?')
+                            ->visible(fn($get) => $get('portfolios') && $get('portfolios') !== 'None')
+                            ->columnSpanFull(),
                     ])
-                    ->columns(3)
-                    ->columnSpan(2),
+                    ->columns(3),
             ])
             ->columns(2)
             ->statePath('data')
@@ -119,10 +145,10 @@ class RegisterClient extends Component implements HasForms
     public function create(): void
     {
         $data = $this->form->getState();
-
-        $record = Client::create($data);
-
-        $this->form->model($record)->saveRelationships();
+        $client = Client::create($data);
+        $this->form->model($client)->saveRelationships();
+        $client->notify(new NotifyClientRegistration());
+        $this->redirect('/clients/submitted');
     }
 
     public function render(): View

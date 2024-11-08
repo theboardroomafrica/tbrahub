@@ -12,13 +12,18 @@ return new class extends Migration {
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('full_name');
             $table->string('email')->unique();
-            $table->string('phone_number')->nullable();
+            $table->string('phone')->nullable();
             $table->string('company')->nullable();
+            $table->string('website')->nullable();
+            $table->string('org_type')->nullable();
+            $table->tinyInteger('sector_id')->nullable();
+            $table->string('portfolios')->nullable();
+            $table->string('parent_company')->nullable();
+            $table->boolean('mulitple_search')->default(0);
+            $table->boolean('for_profit')->default(0);
             $table->string('role')->nullable();
-            $table->string('growth_stage')->nullable();
             $table->foreignId('growth_stage_id')->nullable()->references('id')->on('growth_stages')->onDelete('set null');
             $table->boolean('is_founder')->default(0);
             $table->boolean('has_board_experience')->default(0);
@@ -30,7 +35,7 @@ return new class extends Migration {
             $table->string('linkedin_url')->nullable();
             $table->foreignId('nationality_id')->nullable();
             $table->foreignId('other_nationality_id')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }

@@ -21,14 +21,15 @@ class ClientFactory extends Factory
     {
         return [
             'id' => Str::uuid(),  // Ensure the UUID is generated
-            'first_name' => fake()->firstName,
-            'last_name' => fake()->lastName,
+            'full_name' => fake()->name(),
             'email' => fake()->unique()->safeEmail,
-            'phone_number' => fake()->phoneNumber,
+            'phone' => fake()->phoneNumber,
             'company' => fake()->company,
+            'website' => fake()->url(),
             'role' => fake()->jobTitle,
             'growth_stage_id' => GrowthStage::inRandomOrder()->first()->id, // Assign a random growth stage
             'is_founder' => fake()->boolean,
+            'for_profit' => fake()->boolean,
             'has_board_experience' => fake()->boolean,
             'direct_reports' => fake()->numberBetween(0, 9999),
             'indirect_reports' => fake()->numberBetween(0, 9999),

@@ -29,6 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->brandName('TBrA Hub')
             ->login()
+            ->profile()
             ->colors([
                 'primary' => Color::Amber,
             ])

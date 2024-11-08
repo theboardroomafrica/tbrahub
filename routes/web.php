@@ -23,6 +23,8 @@ Route::get('/creg', function () {
     return view('creg');
 });
 
+Route::get('/clients/submitted', fn() => view('clients.status'))->name('clients.submitted');
+
 Route::middleware(ClientAuthMiddleware::class)->controller(ClientController::class)->group(function () {
     Route::get('/clients/status', 'status')->name('clients.status');
     Route::get('/clients/pay', 'pay')->name('clients.pay');

@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Notifications\Channels\WebhookChannel;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Slack\BlockKit\Blocks\ActionsBlock;
@@ -12,7 +13,7 @@ use Illuminate\Notifications\Slack\BlockKit\Blocks\SectionBlock;
 use Illuminate\Notifications\Slack\BlockKit\Composites\ConfirmObject;
 use Illuminate\Notifications\Slack\SlackMessage;
 
-class NotifyClientRegistration extends Notification
+class NotifyClientRegistration extends Notification implements ShouldQueue
 {
     use Queueable;
 

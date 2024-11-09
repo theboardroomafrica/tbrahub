@@ -91,7 +91,12 @@ class ClientResource extends Resource
                     ->label('Email'),
                 Tables\Columns\TextColumn::make('phone_number')
                     ->label('Phone Number'),
-                Tables\Columns\ToggleColumn::make('isApproved'),
+                Tables\Columns\ToggleColumn::make('isApproved')
+                    ->afterStateUpdated(function ($state, Client $record) {
+                        if ($state) {
+                            $record->approveAccount();
+                        }
+                    }),
                 Tables\Columns\TextColumn::make('role')
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->label('Role'),

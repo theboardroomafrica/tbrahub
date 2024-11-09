@@ -31,4 +31,9 @@ class Opportunity extends Model
     {
         return $this->hasMany(OpportunityApplication::class, 'opportunity_id');
     }
+
+    public function connections()
+    {
+        return $this->hasMany(OpportunityConnection::class);
+    }
 }

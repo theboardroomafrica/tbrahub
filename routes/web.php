@@ -37,6 +37,8 @@ Route::controller(PaymentController::class)->name('payment.')->prefix('/payment'
     Route::get('/cancel', 'cancel')->name("cancel");
 });
 
+Route::post('/stripe/webhook', [\App\Http\Controllers\StripeWebhookController::class, 'handleWebhook']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/settings', [ProfileController::class, 'edit'])->name('profile.edit');

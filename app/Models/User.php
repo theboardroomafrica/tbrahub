@@ -171,6 +171,9 @@ class User extends Authenticatable implements HasMedia
             'user_id' => $this->id,
             'opportunity_id' => $opportunity_id
         ]);
+
+        $connection->notifyUser();
+
         return $connection;
     }
 

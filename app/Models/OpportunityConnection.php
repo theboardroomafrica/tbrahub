@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Notifications\ConnectionRequestNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class OpportunityConnection extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $guarded = [];
 
@@ -51,5 +53,15 @@ class OpportunityConnection extends Model
     public function clientSubscription()
     {
         return $this->belongsTo(ClientSubscription::class);
+    }
+
+    public function notifyUser()
+    {
+        $this->notify(new ConnectionRequestNotification());
+    }
+
+    public function routeNotificationForMail()
+    {
+        return $this->user->email;
     }
 }

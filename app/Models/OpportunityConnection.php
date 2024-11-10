@@ -47,4 +47,9 @@ class OpportunityConnection extends Model
         if ($this->isAccepted()) return "Accepted";
         if ($this->isRejected()) return "Rejected";
     }
+
+    public function clientSubscription()
+    {
+        return $this->belongsTo(ClientSubscription::class);
+    }
 }

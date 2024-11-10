@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('opportunity_connections', function (Blueprint $table) {
             $table->id();
+            $table->foreignUuid('client_subscription_id')->constrained('client_subscriptions')->onDelete('cascade');
             $table->foreignUuid('opportunity_id')->constrained()->onDelete('cascade');
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->timestamp('contacted_at')->nullable();

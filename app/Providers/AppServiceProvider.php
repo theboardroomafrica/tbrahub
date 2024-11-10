@@ -5,6 +5,7 @@ namespace App\Providers;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Cashier\Cashier;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +25,7 @@ class AppServiceProvider extends ServiceProvider
         FilamentAsset::register([
             Css::make('custom-filament', public_path('css/app/custom-filament.css'))
         ]);
+
+        Cashier::calculateTaxes();
     }
 }

@@ -11,10 +11,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Laravel\Cashier\Billable;
 
 class Client extends Authenticatable implements FilamentUser
 {
-    use HasFactory, HasUuids, Notifiable;
+    // TODO: think about upgrades vs downgrades — upgrade (rollover), downgrade lose
+    use HasFactory, HasUuids, Notifiable, Billable;
 
     protected $hidden = [
         'password',
@@ -51,5 +53,59 @@ class Client extends Authenticatable implements FilamentUser
 
         // Send the approval email with the password
         $this->notify(new ClientApprovedNotification($password));
+    }
+
+    public function package()
+    {
+        return $this->belongsTo(Package::class);
+    }
+
+    public function subscriptionHistory()
+    {
+        return $this->hasMany(ClientSubscription::class);
+    }
+
+    public function activeSubscription()
+    {
+        return $this->subscriptions()->whereNull('ended_at')->latest('started_at')->first();
+    }
+
+    public function activePackage()
+    {
+        // TODO: to be updated. Have to determine which one is active. It shouldn't have expired
+        $subscription = $this->activeSubscription();
+        return $subscription ? $subscription->package : null;
+    }
+
+    public function getRemainingCreditsAttribute()
+    {
+        $subscription = $this->activeSubscription();
+        return $subscription ? $subscription->remaining_credits : 0;
+    }
+
+    public function subscribeToPackage(Package $package)
+    {
+        // Create a Stripe checkout session
+        $session = $this->newSubscription('default', $package->stripe_plan_id)->checkout([
+            'success_url' => route('payment.success'),
+            'cancel_url' => route('payment.cancel'),
+            'metadata' => [
+                'client_id' => $this->id, // Pass client_id as metadata
+            ],
+        ]);
+
+        return $session->url;
+    }
+
+    public function logSubscription(Package $package)
+    {
+        // TODO: package duration to determine expiry
+        ClientSubscription::create([
+            'client_id' => $this->id,
+            'package_id' => $package->id,
+            'stripe_subscription_id' => $this->subscription('default')->stripe_id ?? null,
+            'credits_assigned' => $package->default_credits,
+            'started_at' => now(),
+        ]);
     }
 }

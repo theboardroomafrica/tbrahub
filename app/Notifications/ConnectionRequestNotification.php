@@ -40,7 +40,7 @@ class ConnectionRequestNotification extends Notification implements ShouldQueue
             ->line('You have a new connection request for an opportunity.')
             ->line('**Opportunity**: ' . $notifiable->opportunity->name)
             ->line('**Organisation**: ' . $notifiable->opportunity->company)
-            ->action('View Opportunity Details', url('/opportunities/' . $notifiable->opportunity->id))
+            ->action('View Opportunity Details', url('/connections/' . $notifiable->id))
             ->line('Please visit the link above to confirm or decline your interest in this opportunity.')
             ->line('If you have any questions, feel free to reach out to us.')
             ->salutation('Best regards, TheBoardroom Africa Team');

@@ -70,7 +70,10 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        User::factory()->create(['email' => 'member@gmail.com']);
+        User::factory()->create(['email' => 'admin@gmail.com']);
         User::factory(10)->create();
+        // foreach(range(1, 500) as $i) User::factory(10)->create(["created_at" => fake()->dateTimeBetween('2024-01-01', now())])
 
         foreach (\App\Models\Opportunity::all() as $opportunity) {
             foreach (User::take(mt_rand(500, 1500))->get() as $user) {

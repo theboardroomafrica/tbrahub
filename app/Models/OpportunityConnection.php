@@ -65,8 +65,11 @@ class OpportunityConnection extends Model
         $this->notify(new ConnectionResponseNotification());
     }
 
-    public function routeNotificationForMail()
+    public function routeNotificationForMail($notification)
     {
+        if ($notification instanceof ConnectionResponseNotification) {
+            return $this->opportunity->client->email;
+        }
         return $this->user->email;
     }
 }

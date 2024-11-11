@@ -33,7 +33,7 @@ export default {
         },
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 darkblue: {

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\BoardPosition;
+use App\Models\Client;
 use App\Models\Committee;
 use App\Models\Country;
 use App\Models\Gender;
@@ -70,8 +71,10 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        User::factory()->create(['email' => 'member@gmail.com']);
+        User::factory()->create(['email' => 'member@gmail.com', 'first_name' => 'Member', 'last_name' => 'TBrA']);
         User::factory()->create(['email' => 'admin@gmail.com']);
+        Client::factory()->create(['email' => 'client@gmail.com', 'isApproved' => 1, 'hasActiveSubscription' => 1]);
+
         User::factory(10)->create();
         // foreach(range(1, 500) as $i) User::factory(10)->create(["created_at" => fake()->dateTimeBetween('2024-01-01', now())])
 

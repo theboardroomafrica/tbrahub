@@ -121,4 +121,28 @@
     .opportunity-details p {
         @apply mt-4
     }
+
+    .badge {
+        @apply inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset
+    }
+
+    .badge-gray {
+        @apply bg-gray-50 text-gray-600 ring-gray-500/10
+    }
+
+    .badge-mustard {
+        @apply bg-mustard-50 text-mustard-700 ring-mustard-600/10
+    }
+
+    .badge-success {
+        @apply bg-green-50 text-green-700 ring-green-600/10
+    }
+
+    .badge-yellow {
+        @apply bg-yellow-50 text-yellow-700 ring-yellow-600/10
+    }
+
+    .badge-danger {
+        @apply bg-red-50 text-red-700 ring-red-600/10
+    }
 }

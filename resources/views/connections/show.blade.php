@@ -24,7 +24,9 @@
 
                 <h3>Status:</h3>
 
-                <p>{!! $connection->status_text  !!}</p>
+                <p>
+                    <x-badge :state="$connection->status">{{ $connection->statusText }}</x-badge>
+                </p>
 
                 @if(is_null($connection->status))
 

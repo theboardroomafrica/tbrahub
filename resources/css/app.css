@@ -7,7 +7,7 @@
         @apply focus:outline-none focus:ring-4 text-sm font-bold rounded px-4 py-2
     }
 
-    .btn-green {
+    .btn-green, .btn-success {
         @apply text-white bg-green-700 hover:bg-green-800 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800
     }
 
@@ -27,7 +27,7 @@
         @apply text-gray-900 bg-white border border-gray-300  hover:bg-gray-100 focus:ring-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700
     }
 
-    .btn-red {
+    .btn-red, .btn-danger {
         @apply text-white bg-red-700 hover:bg-red-800 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900
     }
 
@@ -112,5 +112,13 @@
 
     .register-client .fi-fo-component-ctn {
         @apply gap-y-6 gap-x-10
+    }
+
+    .opportunity-details h3 {
+        @apply font-bold mt-8 text-xl
+    }
+
+    .opportunity-details p {
+        @apply mt-4
     }
 }

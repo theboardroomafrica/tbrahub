@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ConnectionController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\ClientAuthMiddleware;
@@ -44,6 +45,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware('auth')->controller(ConnectionController::class)->group(function () {
+    Route::get('/connections', 'index')->name('connections.index');
+    Route::get('/connections/{connection}', 'show')->name('connections.show');
+    Route::post('/connections/{connection}/confirm', 'confirm')->name('connections.confirm');
+    Route::post('/connections/{connection}/decline', 'decline')->name('connections.decline');
 });
 
 Route::get('/r/{user}', [ProfileController::class, 'show'])->name('profile.show');

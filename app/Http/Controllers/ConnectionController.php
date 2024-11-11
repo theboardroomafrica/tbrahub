@@ -6,6 +6,14 @@ use App\Models\OpportunityConnection;
 
 class ConnectionController extends Controller
 {
+    public function index()
+    {
+        $user = request()->user();
+        $connections = $user->opportunityConnections;
+
+        return view('connections.index', compact('connections'));
+    }
+
     public function show(OpportunityConnection $connection)
     {
         // TODO: prevent access to non invited connections

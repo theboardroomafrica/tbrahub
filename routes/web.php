@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ConnectionController;
+use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\ClientAuthMiddleware;
@@ -52,6 +53,13 @@ Route::middleware('auth')->controller(ConnectionController::class)->group(functi
     Route::get('/connections/{connection}', 'show')->name('connections.show');
     Route::post('/connections/{connection}/confirm', 'confirm')->name('connections.confirm');
     Route::post('/connections/{connection}/decline', 'decline')->name('connections.decline');
+});
+
+Route::middleware('auth')->controller(OpportunityController::class)->group(function () {
+    Route::get('/opportunities', 'index')->name('opportunities.index');
+    Route::get('/opportunities/{opportunity}', 'show')->name('opportunities.show');
+    Route::post('/opportunities/{opportunity}/confirm', 'confirm')->name('opportunities.confirm');
+    Route::post('/opportunities/{opportunity}/decline', 'decline')->name('opportunities.decline');
 });
 
 Route::get('/r/{user}', [ProfileController::class, 'show'])->name('profile.show');

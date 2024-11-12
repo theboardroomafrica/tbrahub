@@ -12,6 +12,8 @@ class Opportunity extends Model
 
     protected $guarded = [];
 
+    protected $casts = ['deadline' => 'date'];
+
     public function type()
     {
         return $this->belongsTo(OpportunityType::class, 'type_id');
@@ -35,5 +37,11 @@ class Opportunity extends Model
     public function connections()
     {
         return $this->hasMany(OpportunityConnection::class);
+    }
+
+    public function getDeadlineDaysAttribute()
+    {
+        $diff = ceil(now()->diffInDays($this->deadline));
+        return $this->deadline->isFuture() ? $diff . ' days more' : $diff . ' days ago';
     }
 }

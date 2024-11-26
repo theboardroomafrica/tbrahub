@@ -1,91 +1,101 @@
 <x-dash-layout>
-    <section class="mt-8">
-        <div class="container">
-            <div class="h-[400px] bg-darkblue border rounded-xl p-16 flex flex-col justify-center text-white gap-4">
-                <h2 class="text-5xl font-bold font-libre">Welcome, {{ auth()->user()->first_name }}!</h2>
-                <p class="max-w-3xl">Thanks for joining TheBoardroom Africa. To be eligible for board opportunities you
-                    must
-                    complete your profile, but don’t worry, we will guide you through the whole process. Here’s your
-                    progress so far:</p>
-                <div class="flex gap-8 mt-4">
-                    <a href="#" class="btn btn-dawn flex items-center">View Profile</a>
-                    <a href="#" class="btn btn-mustard flex gap-2 items-center">
-                        <x-heroicon-o-sparkles class="h-6 w-6 text-white"/>
-                        Cover letter generator</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="mt-8">
-        <div class="container grid grid-cols-[1fr_2fr] gap-16">
-            <div class="sidebar">
-                <h3 class="font-bold mb-4 text-md">
-                    Check this space
-                </h3>
-                <img src="https://placehold.co/400x500" class="rounded-md"/>
 
-                <img src="https://placehold.co/400x150" class="rounded-md mt-8"/>
-            </div>
+    @section('title', "Welcome, " . auth()->user()->first_name . "!")
 
+    <section>
+        <div class="container grid grid-cols-[2fr_1fr] gap-8">
             <div class="mainbar">
-                <div class="flex justify-between mb-4">
-                    <h3 class="font-bold text-md">
-                        Board Opportunities
-                    </h3>
-                    <a href="#" class="btn btn-tender -mt-3">All Opportunities</a>
-                </div>
-                <div class="opportunities grid grid-cols-2 gap-12">
-                    <div class="pt-6 border border-gray-200 rounded-lg overflow-hidden shadow-sm bg-white">
-                        <img src="https://placehold.co/150" class="mx-auto"/>
-                        <div class="bg-dawn-500 mt-6 text-center p-3">INED Role - UpEnergy Group</div>
+                <div class="card">
+                    <div class="flex justify-between mb-4">
+                        <h3 class="font-bold text-md">
+                            New Opportunities
+                        </h3>
+                        <a href="{{ route('opportunities.index') }}" class=""> → All Opportunities</a>
                     </div>
-                    <div class="pt-6 border border-gray-200 rounded-lg overflow-hidden shadow-sm bg-white">
-                        <img src="https://placehold.co/150" class="mx-auto"/>
-                        <div class="bg-dawn-500 mt-6 text-center p-3">INED Role - UpEnergy Group</div>
+                    <div class="opportunities grid grid-cols-3 gap-6">
+                        <a href="#" class="pt-6 border border-gray-200 rounded-lg overflow-hidden bg-white">
+                            <img alt="Opportunity Logo"
+                                 src="https://www.afsic.net/wp-content/uploads/2022/03/Norsad-Capital-logo.jpg"
+                                 class="mx-auto h-16"/>
+
+                            <div class="bg-gray-200 mt-6 p-3">
+                                <p class="font-semibold">Independent Non Executive Director</p>
+                            </div>
+                        </a>
+                        <a href="#" class="pt-6 border border-gray-200 rounded-lg overflow-hidden bg-white">
+                            <img alt="Opportunity Logo"
+                                 src="https://mastercardfdn.org/wp-content/uploads/2018/10/mcf-logo.jpg"
+                                 class="mx-auto h-16"/>
+
+                            <div class="bg-gray-200 mt-6 p-3">
+                                <p class="font-semibold">Independent Non Executive Director</p>
+                            </div>
+                        </a>
+                        <a href="#" class="pt-6 border border-gray-200 rounded-lg overflow-hidden bg-white">
+                            <img alt="Opportunity Logo"
+                                 src="https://web.theboardroomafrica.com/wp-content/uploads/2022/08/01-unilever.jpg"
+                                 class="mx-auto h-16"/>
+
+                            <div class="bg-gray-200 mt-6 p-3">
+                                <p class="font-semibold">Independent Non Executive Director</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
 
-                <div class="flex justify-between mb-4 mt-16">
-                    <h3 class="font-bold text-md">
-                        Events and programmes
-                    </h3>
-                    <a href="#" class="btn btn-tender -mt-3">All Events / Programmes</a>
-                </div>
-                <div class="opportunities grid grid-cols-2 gap-12">
-                    <div class="border border-gray-200 rounded-lg overflow-hidden shadow-sm bg-white">
-                        <img src="https://placehold.co/400x250" class="mx-auto h-[250px] object-cover"/>
-                        <div class="p-4 flex gap-3 items-center">
-                            <div class="bg-mustard-200 text-sm py-1 px-3 rounded flex flex-col">
-                                <p class="text-mustard-600 font-bold text-xs">JUL</p>
-                                <p class="text-xl font-bold leading-none">19</p>
+                <div class="card mt-8">
+                    <div class="flex justify-between">
+                        <h3 class="font-bold text-md">
+                            Events and programmes
+                        </h3>
+                        <a href="#" class=""> → All Events / Programmes</a>
+                    </div>
+                    <div class="opportunities grid grid-cols-2 gap-8 mt-4">
+                        <div class="border border-gray-200 rounded-lg overflow-hidden bg-white">
+                            <img
+                                src="https://res.cloudinary.com/dhhw72iwq/image/upload/v1715676734/WebinarBnnr_tgsrkk.jpg"
+                                class="mx-auto h-[200px] object-cover"/>
+                            <div class="p-4 flex gap-3 items-center">
+                                <div class="bg-mustard-200 text-sm py-1 px-3 rounded flex flex-col">
+                                    <p class="text-mustard-600 font-bold text-xs">JUL</p>
+                                    <p class="text-xl font-bold leading-none">19</p>
+                                </div>
+                                <div class="">
+                                    <h3 class="font-bold">Developing Executive Presence</h3>
+                                    <p class="text-sm"><b>Coach:</b> Rachel Adams</p>
+                                </div>
                             </div>
-                            <div class="">
-                                <h3 class="font-bold">Developing Executive Presence</h3>
-                                <p class="text-sm"><b>Coach:</b> Rachel Adams</p>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg overflow-hidden bg-white">
+                            <img
+                                src="https://res.cloudinary.com/dhhw72iwq/image/upload/v1720431441/SteveWebinerBG_vnpvbd.jpg"
+                                class="mx-auto h-[200px] object-cover"/>
+                            <div class="p-4 flex gap-3 items-center">
+                                <div class="bg-mustard-200 text-sm py-1 px-3 rounded flex flex-col">
+                                    <p class="text-mustard-600 font-bold text-xs">JUL</p>
+                                    <p class="text-xl font-bold leading-none">19</p>
+                                </div>
+                                <div class="">
+                                    <h3 class="font-bold">Developing Executive Presence</h3>
+                                    <p class="text-sm"><b>Coach:</b> Rachel Adams</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="border border-gray-200 rounded-lg overflow-hidden shadow-sm bg-white">
-                        <img src="https://placehold.co/400x250" class="mx-auto h-[250px] object-cover"/>
-                        <div class="p-4 flex gap-3 items-center">
-                            <div class="bg-mustard-200 text-sm py-1 px-3 rounded flex flex-col">
-                                <p class="text-mustard-600 font-bold text-xs">JUL</p>
-                                <p class="text-xl font-bold leading-none">19</p>
-                            </div>
-                            <div class="">
-                                <h3 class="font-bold">Developing Executive Presence</h3>
-                                <p class="text-sm"><b>Coach:</b> Rachel Adams</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+            </div>
+
+            <div class="sidebar card self-start">
+                <h3 class="font-bold mb-4 text-md">Professional Support</h3>
+                <img src="https://placehold.co/400x470" alt="" class="rounded-md"/>
+                <img src="https://placehold.co/400x150" alt="" class="rounded-md mt-8"/>
             </div>
         </div>
     </section>
 
     <section>
         <div class="container">
-            <div class="rounded-lg border mt-16 py-12 px-16 flex justify-between bg-white">
+            <div class="rounded-lg border mt-8 py-12 px-16 flex justify-between bg-white">
                 <div class="">
                     <h2 class="text-3xl font-bold">Connect on the go</h2>
                     <p class="text-xl">Download TheBoardroom Africa mobile app</p>

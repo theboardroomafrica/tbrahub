@@ -1,15 +1,8 @@
 <x-dash-layout>
-    <section class="mt-8">
-        <div class="container">
-            <div class="bg-darkblue border rounded-xl p-16 flex flex-col justify-center text-white gap-4">
-                <h2 class="text-3xl font-bold font-libre">Connection Requests</h2>
-                <p class="max-w-3xl">Review and manage connection requests for board and executive
-                    opportunities. Click on an opportunity below to learn more and confirm or decline the connection
-                    request.</p>
-            </div>
-        </div>
-    </section>
-    <section class="mt-12">
+
+    @section('title', "Connection Requests")
+
+    <section>
         <div class="container">
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($connections as $connection)

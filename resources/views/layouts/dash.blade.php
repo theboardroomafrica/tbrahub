@@ -15,7 +15,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased text-sm">
-<div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <!-- Page Content -->
     <div class="antialiased">
         <nav
@@ -57,13 +57,21 @@
                         <span class="sr-only">Toggle sidebar</span>
                     </button>
                     <a href="{{ route("dashboard") }}" class="flex items-center justify-between mr-4">
-                        <img src="{{ URL::asset('images/logo.svg') }}" class="w-20"/>
+                        <img src="{{ URL::asset('images/logo.svg') }}" alt="TBrA Logo" class="w-20"/>
                     </a>
                 </div>
                 <div class="flex gap-1 items-center">
-                    <x-heroicon-o-bell-alert
-                        class="h-10 w-10 p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100"/>
-                    <img src="https://placehold.co/200x200" class="h-8 w-8 rounded-full">
+                    <a href="{{ route('profile.index') }}" class="mr-6 flex items-center gap-1">
+                        <x-heroicon-o-arrow-path-rounded-square class="w-6 h-6"/>
+                        Refer a friend
+                    </a>
+                    <a href="{{ route('profile.index') }}" class="btn btn-dark flex items-center font-normal mr-6">Upgrade</a>
+                    <a href="#" class=" mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100">
+                        <x-heroicon-o-bell-alert class="h-10 w-10 p-2"/>
+                    </a>
+                    <a href="#">
+                        <img src="https://placehold.co/200x200" alt="Member Image" class="h-8 w-8 rounded-full">
+                    </a>
                 </div>
             </div>
         </nav>
@@ -76,78 +84,14 @@
             id="drawer-navigation"
         >
             <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
-                <ul
-                    class="pt-5 space-y-2"
-                >
-                    <li>
-                        <a
-                            href="{{ route('dashboard') }}"
-                            class="flex items-center p-2 text-base rounded-lg transition duration-75 hover:bg-gray-100 group"
-                        >
-                            <x-heroicon-o-home class="h-6 w-6"/>
-                            <span class="ml-3">Home</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="{{ route('opportunities.index') }}"
-                            class="flex items-center p-2 text-base rounded-lg transition duration-75 hover:bg-gray-100 group"
-                        >
-                            <x-heroicon-o-briefcase class="h-6 w-6"/>
-                            <span class="ml-3">Opportunities</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="{{ route('connections.index') }}"
-                            class="flex items-center p-2 text-base rounded-lg transition duration-75 hover:bg-gray-100 group"
-                        >
-                            <x-heroicon-o-paper-airplane class="h-6 w-6"/>
-                            <span class="ml-3">Connections</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="#"
-                            class="flex items-center p-2 text-base rounded-lg transition duration-75 hover:bg-gray-100 group"
-                        >
-                            <x-heroicon-o-academic-cap class="h-6 w-6"/>
-                            <span class="ml-3">Programmes</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="#"
-                            class="flex items-center p-2 text-base rounded-lg transition duration-75 hover:bg-gray-100 group"
-                        >
-                            <x-heroicon-o-calendar class="h-6 w-6"/>
-                            <span class="ml-3">Events</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="#"
-                            class="flex items-center p-2 text-base rounded-lg transition duration-75 hover:bg-gray-100 group"
-                        >
-                            <x-heroicon-o-folder class="h-6 w-6"/>
-                            <span class="ml-3">Resources</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="#"
-                            class="flex items-center p-2 text-base rounded-lg transition duration-75 hover:bg-gray-100 group"
-                        >
-                            <x-heroicon-o-question-mark-circle class="h-6 w-6"/>
-                            <span class="ml-3">FAQs</span>
-                        </a>
-                    </li>
+                <ul class="pt-5 space-y-2">
+                    <x-menu-item title="Dashboard" route="{{ route('dashboard') }}" icon="home"/>
+                    <x-menu-item title="Opportunities" route="{{ route('opportunities.index') }}" icon="briefcase"/>
+                    <x-menu-item title="Professional Support" route="#" icon="user-group"/>
+                    <x-menu-item title="Connections" route="{{ route('connections.index') }}" icon="paper-airplane"/>
+                    <x-menu-item title="Events" route="#" icon="calendar"/>
+                    <x-menu-item title="Resources" route="#" icon="folder"/>
+                    <x-menu-item title="FAQs" route="#" icon="question-mark-circle"/>
                 </ul>
             </div>
             <div
@@ -179,9 +123,25 @@
                 </form>
             </div>
         </aside>
-        <main class="p-8 md:ml-64 mt-16">
+        @unless (view()->hasSection('hideTitle'))
+            <section class="md:ml-64 mt-16">
+                <div class="container">
+                    <div class="flex items-center justify-between py-6">
+                        <h2 class="text-3xl font-semibold text-dark font-libre">@yield('title')</h2>
+
+                        <div class="flex">
+                            <a href="#" class="btn btn-white flex gap-2 items-center">
+                                <x-heroicon-o-sparkles class="h-6 w-6"/>
+                                Create a cover letter</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endunless
+        <main class="md:ml-64">
             {{ $slot }}
         </main>
+        <br><br>
     </div>
 </div>
 

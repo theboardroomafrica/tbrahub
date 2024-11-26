@@ -160,4 +160,8 @@
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 3;
     }
+
+    .card {
+        @apply p-6 border rounded-md bg-white
+    }
 }

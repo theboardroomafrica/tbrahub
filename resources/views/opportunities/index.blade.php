@@ -1,13 +1,13 @@
-<x-app-layout>
-    <section class="mt-8">
-        <div class="container">
-            <div class="bg-darkblue border rounded-xl p-16 flex flex-col justify-center text-white gap-4">
-                <h2 class="text-3xl font-bold font-libre">Opportunities</h2>
-                <p class="max-w-3xl">Review and manage opportunities for board and executive
-                    opportunities. Click on an opportunity to learn more and apply.</p>
-            </div>
-        </div>
-    </section>
+<x-dash-layout>
+    {{--    <section class="mt-8">--}}
+    {{--        <div class="container">--}}
+    {{--            <div class="bg-darkblue border rounded-xl p-16 flex flex-col justify-center text-white gap-4">--}}
+    {{--                <h2 class="text-3xl font-bold font-libre">Opportunities</h2>--}}
+    {{--                <p class="max-w-3xl">Review and manage opportunities for board and executive--}}
+    {{--                    opportunities. Click on an opportunity to learn more and apply.</p>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </section>--}}
     <section class="mt-12">
         <div class="container">
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -51,4 +51,4 @@
             </div>
         </div>
     </section>
-</x-app-layout>
+</x-dash-layout>

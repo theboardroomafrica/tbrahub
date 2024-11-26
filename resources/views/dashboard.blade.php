@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-dash-layout>
     <section class="mt-8">
         <div class="container">
             <div class="h-[400px] bg-darkblue border rounded-xl p-16 flex flex-col justify-center text-white gap-4">
@@ -97,4 +97,4 @@
             </div>
         </div>
     </section>
-</x-app-layout>
+</x-dash-layout>

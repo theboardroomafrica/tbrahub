@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-dash-layout>
     <section class="mt-8">
         <div class="container">
             <div class="bg-darkblue border rounded-xl p-8 flex text-white gap-4 items-center">
@@ -36,9 +36,10 @@
                     {!! $opportunity->info !!}
                 </div>
                 <div class="bg-dawn-100 p-16">
-                    All files to be downloaded
+                    <p class="!mt-0">All files to be downloaded</p>
+                    <a class="mt-4 btn btn-white inline-block" href="{{ route('profile.index') }}">Update profile</a>
                 </div>
             </div>
         </div>
     </section>
-</x-app-layout>
+</x-dash-layout>

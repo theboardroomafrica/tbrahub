@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-dash-layout>
     <section class="mt-8">
         <div class="container">
             <div class="rounded-xl border p-16 opportunity-details bg-white">
@@ -50,4 +50,4 @@
             </div>
         </div>
     </section>
-</x-app-layout>
+</x-dash-layout>

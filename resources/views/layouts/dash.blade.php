@@ -61,7 +61,7 @@
                     </a>
                 </div>
                 <div class="flex gap-1 items-center">
-                    <a href="{{ route('profile.index') }}" class="mr-6 flex items-center gap-1">
+                    <a href="{{ route('profile.index') }}" class="mr-6 flex items-center gap-1 btn btn-transparent">
                         <x-heroicon-o-arrow-path-rounded-square class="w-6 h-6"/>
                         Refer a friend
                     </a>

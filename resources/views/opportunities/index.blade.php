@@ -4,7 +4,7 @@
 
     <section>
         <div class="container">
-            <div class="card bg-gray-100">
+            <div class="card2">
                 <h2>We couldn't identify any roles that align with your interests and expertise at this time</h2>
                 <div class="card max-w-80 mt-4">
                     <h2>Get better matches by updating your profile and preferences</h2>

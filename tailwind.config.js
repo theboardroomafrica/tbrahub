@@ -33,7 +33,7 @@ export default {
         },
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 darkblue: {
@@ -113,6 +113,14 @@ export default {
                     800: "#1f2937",
                     900: "#111827",
                     950: "#030712",
+                },
+                lightpurple: {
+                    100: "#e5ecf6",
+                    200: "#c6c7f8",
+                    300: "#95a4fc",
+                },
+                lightblue: {
+                    100: "#e3f5ff",
                 }
             },
         },

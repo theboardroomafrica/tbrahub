@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Notifications\ConnectionRequestNotification;
+use App\Notifications\ConnectionResponseNotification;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class OpportunityConnection extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable, HasUuids;
 
     protected $guarded = [];
 
@@ -43,8 +47,29 @@ class OpportunityConnection extends Model
 
     public function getStatusTextAttribute()
     {
-        if ($this->isPending()) return "Pending";
-        if ($this->isAccepted()) return "Accepted";
-        if ($this->isRejected()) return "Rejected";
+        return is_null($this->status) ? 'Pending' : ($this->status == 1 ? 'Accepted' : 'Declined');
+    }
+
+    public function clientSubscription()
+    {
+        return $this->belongsTo(ClientSubscription::class);
+    }
+
+    public function notifyUser()
+    {
+        $this->notify(new ConnectionRequestNotification());
+    }
+
+    public function respond()
+    {
+        $this->notify(new ConnectionResponseNotification());
+    }
+
+    public function routeNotificationForMail($notification)
+    {
+        if ($notification instanceof ConnectionResponseNotification) {
+            return $this->opportunity->client->email;
+        }
+        return $this->user->email;
     }
 }

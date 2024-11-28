@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ConnectionController;
+use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\ClientAuthMiddleware;
@@ -9,6 +11,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (\App\Repository\PaymentGateway $paymentGateway) {
     return redirect('/login');
+});
+
+Route::get('/test', function () {
+    return view('test');
 });
 
 Route::get('/dashboard', function () {
@@ -37,11 +43,27 @@ Route::controller(PaymentController::class)->name('payment.')->prefix('/payment'
     Route::get('/cancel', 'cancel')->name("cancel");
 });
 
+Route::post('/stripe/webhook', [\App\Http\Controllers\StripeWebhookController::class, 'handleWebhook']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/settings', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware('auth')->controller(ConnectionController::class)->group(function () {
+    Route::get('/connections', 'index')->name('connections.index');
+    Route::get('/connections/{connection}', 'show')->name('connections.show');
+    Route::post('/connections/{connection}/confirm', 'confirm')->name('connections.confirm');
+    Route::post('/connections/{connection}/decline', 'decline')->name('connections.decline');
+});
+
+Route::middleware('auth')->controller(OpportunityController::class)->group(function () {
+    Route::get('/opportunities', 'index')->name('opportunities.index');
+    Route::get('/opportunities/{opportunity}', 'show')->name('opportunities.show');
+    Route::post('/opportunities/{opportunity}/confirm', 'confirm')->name('opportunities.confirm');
+    Route::post('/opportunities/{opportunity}/decline', 'decline')->name('opportunities.decline');
 });
 
 Route::get('/r/{user}', [ProfileController::class, 'show'])->name('profile.show');

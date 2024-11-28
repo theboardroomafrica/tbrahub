@@ -17,6 +17,7 @@ class PaymentController extends Controller
 
     public function success(Request $request)
     {
+        // TODO: rely on webhooks
         $request->user('client')->update(["hasActiveSubscription" => 1]);
         return redirect('clients');
     }

@@ -14,7 +14,9 @@ class OpportunityController extends Controller
             ->orderBy('deadline', 'asc')
             ->paginate(6);
 
-        return view('opportunities.index', compact(['opportunities']));
+        $matched = request()->has('matched') ? Opportunity::first() : null;
+
+        return view('opportunities.index', compact(['opportunities', 'matched']));
     }
 
     public function show(Opportunity $opportunity)

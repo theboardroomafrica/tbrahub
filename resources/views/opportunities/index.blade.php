@@ -4,14 +4,24 @@
 
     <section>
         <div class="container">
-            <div class="card2">
-                <h2>We couldn't identify any roles that align with your interests and expertise at this time</h2>
-                <div class="card max-w-80 mt-4">
-                    <h2>Get better matches by updating your profile and preferences</h2>
-                    <a href="{{ route('profile.index') }}" class="font-bold text-mustard-700 mt-2 inline-block"> →
-                        UPDATE PROFILE</a>
+
+            @if($matched)
+                <div class="card2">
+                    <h3 class="font-bold text-md">Matched opportunities</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-4">
+                        <x-opportunity-card :simple="true" :opportunity="$matched"/>
+                    </div>
                 </div>
-            </div>
+            @else
+                <div class="card2">
+                    <h2>We couldn't identify any roles that align with your interests and expertise at this time</h2>
+                    <div class="card max-w-80 mt-4">
+                        <h2>Get better matches by updating your profile and preferences</h2>
+                        <a href="{{ route('profile.index') }}" class="font-bold text-mustard-700 mt-2 inline-block"> →
+                            UPDATE PROFILE</a>
+                    </div>
+                </div>
+            @endif
 
             <div class="flex justify-between items-center mt-8">
                 <h3 class="font-bold text-md">Featured opportunities</h3>
@@ -51,38 +61,7 @@
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-4">
                 @foreach($opportunities as $opportunity)
-                    <div class="border rounded-xl p-4 bg-white flex flex-col">
-                        <div class="flex items-center">
-                            <img alt="{{ $opportunity->company }} Logo" src="https://placehold.co/300" width="80"
-                                 class="rounded-full">
-                            <div class="ml-3 flex-1">
-                                <a href="{{ route('opportunities.show', $opportunity) }}"
-                                   class="font-bold text-[17px] line-clamp-1">{{ $opportunity->company }}</a>
-                                <p><b>Closes:</b> {{ $opportunity->deadline->format('d M Y') }}</p>
-                                <div class="flex mt-2 gap-2">
-                                    <span class="badge badge-mustard">Fintech</span>
-                                    <span class="badge badge-tender">Global Opportunity</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-4 p-3 bg-tender-50 rounded-xl flex-1">
-                            <div class="flex justify-between">
-                                <p class="font-bold text-[18px]">{{ $opportunity->name }}</p>
-                            </div>
-                            <p class="mt-2 line-clamp-3">{{ strip_tags($opportunity->info) }}</p>
-                        </div>
-
-                        <div class="mt-auto flex pt-3 gap-4 items-center justify-between">
-                            @unless($opportunity->deadline->isPast())
-                                <a href="{{ route('opportunities.show', $opportunity) }}"
-                                   class="btn btn-tender">Apply</a>
-                            @else
-                                <a href="javascript:void(0)" class="btn btn-disabled">Apply</a>
-                            @endunless
-                            <x-badge :state="!$opportunity->deadline->isPast()">
-                                Application {{ $opportunity->deadline->isPast() ? "closed" : "ongoing" }}</x-badge>
-                        </div>
-                    </div>
+                    <x-opportunity-card :opportunity="$opportunity"/>
                 @endforeach
             </div>
             <div class="mt-4">

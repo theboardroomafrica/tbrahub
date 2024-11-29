@@ -1,6 +1,6 @@
 <x-dash-layout>
 
-    @section('title', "Welcome, " . auth()->user()->first_name . "!")
+    <x-title-bar title="Welcome, {{ auth()->user()->first_name }}!"/>
 
     <section>
         <div class="container grid grid-cols-[2fr_1fr] gap-8">

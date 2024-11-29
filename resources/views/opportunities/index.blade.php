@@ -1,6 +1,6 @@
 <x-dash-layout>
-
-    @section('title', "Opportunities")
+    
+    <x-title-bar title="Opportunities"/>
 
     <section>
         <div class="container">

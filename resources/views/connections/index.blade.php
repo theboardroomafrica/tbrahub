@@ -1,6 +1,6 @@
 <x-dash-layout>
 
-    @section('title', "Connection Requests")
+    <x-title-bar title="Connection Requests"/>
 
     <section>
         <div class="container">

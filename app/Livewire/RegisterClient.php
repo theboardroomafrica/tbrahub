@@ -37,7 +37,7 @@ class RegisterClient extends Component implements HasForms
                             ->required()
                             ->email(),
                         Forms\Components\TextInput::make('company')
-                            ->label('Company / Legal Entity')
+                            ->label('Company name / Legal Entity name')
                             ->placeholder('Enter company')
                             ->required(),
                         Forms\Components\TextInput::make('role')
@@ -49,6 +49,7 @@ class RegisterClient extends Component implements HasForms
                             ->required(),
                         Forms\Components\TextInput::make('website')
                             ->placeholder("Enter company's website")
+                            ->label('Company website')
                             ->url()
                             ->required(),
                     ])
@@ -58,10 +59,15 @@ class RegisterClient extends Component implements HasForms
                         Forms\Components\Select::make('org_type')
                             ->required()
                             ->options([
-                                "Independent Company" => "Independent Company",
+                                "Private company" => "Private company",
+                                "Listed Company" => "Listed Company",
+                                "Public Company" => "Public Company",
                                 "Investment firm" => "Investment firm",
-                                "Group of companies" => "Group of companies",
+                                "Foundation" => "Foundation",
+                                "Parent (Group of companies)" => "Parent (Group of companies)",
                                 "Subsidiary of a group" => "Subsidiary of a group",
+                                "Development finance institution" => "Development finance institution",
+                                "Government enterprise" => "Government enterprise",
                                 "Recruitment agency" => "Recruitment agency",
                                 "Other" => "Other",
                             ])
@@ -93,6 +99,7 @@ class RegisterClient extends Component implements HasForms
                                 "Agriculture",
                                 "Financial Services",
                                 "Healthcare",
+                                'HR / Recruitment',
                                 "Technology",
                                 "Construction",
                                 "Transportation & Logistics",
@@ -117,21 +124,23 @@ class RegisterClient extends Component implements HasForms
                     ->schema([
                         Forms\Components\Select::make('portfolios')
                             ->options([
-                                "None",
+                                // "None",
                                 "< 5",
                                 "< 10",
                                 "<20",
                                 "<30",
                                 "<40",
                                 "<50",
-                                "50+",])
+                                "50+",
+                                "100+",
+                            ])
                             ->label('Number of portfolio companies / clients')
                             ->reactive(),
                         Forms\Components\TextInput::make('parent_company')
                             ->placeholder('Parent Company (if any)'),
                         Forms\Components\Hidden::make(''),
                         Forms\Components\Toggle::make('mulitple_search')
-                            ->label('Will you be conducting searches for your portfolio companies or clients?')
+                            ->label('Will you be conducting these searches on behalf of your portfolio companies or clients?')
                             ->visible(fn($get) => $get('portfolios') && $get('portfolios') !== 'None')
                             ->columnSpanFull(),
                     ])

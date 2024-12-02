@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('website')->nullable();
             $table->integer('employees')->nullable();
             $table->text('info')->nullable();
+            $table->text('brief')->nullable();
             $table->foreignUuid('client_id')->references('id')->on('clients');
             $table->foreignId('revenue_id')->nullable()->references('id')->on('revenue_categories')->onDelete('set null');
             $table->foreignId('type_id')->nullable()->references('id')->on('opportunity_types')->onDelete('cascade');

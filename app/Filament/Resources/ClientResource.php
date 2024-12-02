@@ -80,12 +80,8 @@ class ClientResource extends Resource
                 Tables\Columns\TextColumn::make('company')
                     ->searchable()
                     ->label('Company'),
-                Tables\Columns\TextColumn::make('first_name')
-                    ->searchable()
-                    ->label('First Name'),
-                Tables\Columns\TextColumn::make('last_name')
-                    ->searchable()
-                    ->label('Last Name'),
+                Tables\Columns\TextColumn::make('full_name')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable()
                     ->label('Email'),
@@ -114,7 +110,8 @@ class ClientResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('created_at', 'desc');
     }
 
     public static function getRelations(): array

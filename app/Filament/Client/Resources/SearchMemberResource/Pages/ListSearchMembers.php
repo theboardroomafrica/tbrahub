@@ -71,18 +71,44 @@ class ListSearchMembers extends ListRecords
                     ->color(fn(string $state): string => match ($state) {
                         'Pending' => 'gray',
                         'Rejected' => 'danger',
-                        'Connected' => 'success',
+                        'Accepted' => 'success',
                     })
                     ->default('Pending')
                     ->getStateUsing(function ($record) {
                         $status = $record->opportunityConnection($this->parent)?->status;
                         if (is_null($status)) return "Pending";
-                        return $status ? "Connected" : "Rejected";
+                        return $status ? "Accepted" : "Rejected";
                     })
-                    ->label('Contacted')
+                    ->label('Response')
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('contact_status')
+                    ->label('Contact Status')
+                    ->options([
+                        'contacted' => 'Contacted',
+                        'not_contacted' => 'Not Contacted',
+                        'accepted' => 'Accepted',
+                        'declined' => 'Declined',
+                    ])
+                    ->query(function (array $data, Builder $query) {
+                        if ($data['value'] === 'contacted') {
+                            $query->whereHas('opportunityConnections', function ($query) {
+                                $query->where('opportunity_id', $this->parent);
+                            });
+                        } elseif ($data['value'] === 'not_contacted') {
+                            $query->whereDoesntHave('opportunityConnections', function ($query) {
+                                $query->where('opportunity_id', $this->parent);
+                            });
+                        } elseif ($data['value'] === 'accepted') {
+                            $query->whereHas('opportunityConnections', function ($query) {
+                                $query->where('opportunity_id', $this->parent)->where('status', 1);
+                            });
+                        } elseif ($data['value'] === 'declined') {
+                            $query->whereHas('opportunityConnections', function ($query) {
+                                $query->where('opportunity_id', $this->parent)->where('status', 0);
+                            });
+                        }
+                    }),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make('cv')
@@ -154,12 +180,20 @@ class ListSearchMembers extends ListRecords
                 ->modifyQueryUsing(fn(Builder $query) => $query->whereHas('opportunityBookmark', function ($query) {
                     $query->where('opportunity_id', $this->parent);
                 })),
-            'contacted' => Tab::make()
+            'pipeline' => Tab::make()
+                ->modifyQueryUsing(fn(Builder $query) => $query->whereHas('opportunityConnections', function ($query) {
+                    $query->where('opportunity_id', $this->parent)->where('status', 1);
+                })),
+            'shortlisted' => Tab::make()
+                ->modifyQueryUsing(fn(Builder $query) => $query->whereHas('opportunityConnections', function ($query) {
+                    $query->where('opportunity_id', $this->parent)->where('status', 1);
+                })),
+            'interview_candidates' => Tab::make()
                 ->modifyQueryUsing(fn(Builder $query) => $query->whereHas('opportunityConnections', function ($query) {
                     $query->where('opportunity_id', $this->parent);
                 })),
-            'Not contacted' => Tab::make()
-                ->modifyQueryUsing(fn(Builder $query) => $query->whereDoesntHave('opportunityConnections', function ($query) {
+            'appointed' => Tab::make()
+                ->modifyQueryUsing(fn(Builder $query) => $query->whereHas('opportunityConnections', function ($query) {
                     $query->where('opportunity_id', $this->parent);
                 })),
         ];

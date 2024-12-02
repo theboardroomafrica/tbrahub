@@ -50,6 +50,12 @@ class SearchResource extends Resource
                     ->label("Opportunity type")
                     ->required()
                     ->options(OpportunityType::pluck('name', 'id')),
+                Forms\Components\Toggle::make('isOpen')
+                    ->label('Public')
+                    ->onColor('success')    // Optional: Sets the color when "on"
+                    ->offColor('danger')    // Optional: Sets the color when "off"
+                    ->inline(false)         // Optional: Sets the toggle alignment (use `true` for inline)
+                    ->default(false),
                 Forms\Components\RichEditor::make('info')
                     ->columnSpanFull(),
             ])->columns(3);
@@ -75,6 +81,11 @@ class SearchResource extends Resource
                 Tables\Columns\TextColumn::make('type.name')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\ToggleColumn::make('isOpen')
+                    ->label('Public')
+                    ->onColor('success')    // Optional: Color when toggled on
+                    ->sortable()            // Allows sorting based on the boolean field
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

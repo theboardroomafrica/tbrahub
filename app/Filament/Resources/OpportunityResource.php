@@ -44,6 +44,8 @@ class OpportunityResource extends Resource
                 Forms\Components\TextInput::make('type_id')
                     ->numeric()
                     ->default(null),
+                Forms\Components\RichEditor::make('brief')
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -58,11 +60,11 @@ class OpportunityResource extends Resource
                 Tables\Columns\TextColumn::make('type.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('applications_count')
-                    ->counts('applications')
-                    ->label('#')
-                    ->numeric()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('applications_count')
+                //     ->counts('applications')
+                //     ->label('#')
+                //     ->numeric()
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

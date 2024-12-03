@@ -23,4 +23,24 @@ class OpportunityController extends Controller
     {
         return view('opportunities.show', compact('opportunity'));
     }
+
+    public function apply(Opportunity $opportunity)
+    {
+        return view('opportunities.apply', compact('opportunity'));
+    }
+
+    public function recommend(Opportunity $opportunity)
+    {
+        return view('opportunities.recommend', compact('opportunity'));
+    }
+
+    public function storeApply(Opportunity $opportunity)
+    {
+        //
+    }
+
+    public function storeRecommend(Opportunity $opportunity)
+    {
+        //
+    }
 }

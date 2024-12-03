@@ -62,7 +62,11 @@ Route::middleware('auth')->controller(ConnectionController::class)->group(functi
 Route::middleware('auth')->controller(OpportunityController::class)->group(function () {
     Route::get('/opportunities', 'index')->name('opportunities.index');
     Route::get('/opportunities/{opportunity}', 'show')->name('opportunities.show');
+    Route::get('/opportunities/{opportunity}/apply', 'apply')->name('opportunities.apply');
+    Route::get('/opportunities/{opportunity}/recommend', 'recommend')->name('opportunities.recommend');
     Route::post('/opportunities/{opportunity}/confirm', 'confirm')->name('opportunities.confirm');
+    Route::post('/opportunities/{opportunity}/apply', 'storeApply')->name('opportunities.apply.store');
+    Route::post('/opportunities/{opportunity}/recommend', 'storeRecommend')->name('opportunities.recommend.store');
     Route::post('/opportunities/{opportunity}/decline', 'decline')->name('opportunities.decline');
 });
 

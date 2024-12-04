@@ -1,13 +1,13 @@
 <x-dash-layout>
 
-    <x-title-bar title="Welcome, {{ auth()->user()->first_name }}!"/>
+    <x-title-bar title="Welcome, {{ auth()->user()->first_name }}!" hideButton="true"/>
 
     <section>
-        <div class="container grid grid-cols-[2fr_1fr] gap-8">
+        <div class="container grid grid-cols-[5fr_2fr] gap-8">
             <div class="mainbar">
-                <div class="card2">
+                <div class="">
                     <div class="flex justify-between mb-4">
-                        <h3 class="font-bold text-md">
+                        <h3 class="font-bold text-lg">
                             New Opportunities
                         </h3>
                         <a href="{{ route('opportunities.index') }}" class=""> → All Opportunities</a>
@@ -43,9 +43,9 @@
                     </div>
                 </div>
 
-                <div class="card2 mt-8">
+                <div class="mt-20">
                     <div class="flex justify-between">
-                        <h3 class="font-bold text-md">
+                        <h3 class="font-bold text-lg">
                             Events and programmes
                         </h3>
                         <a href="#" class=""> → All Events / Programmes</a>
@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <div class="sidebar card self-start">
+            <div class="sidebar self-start">
                 <h3 class="font-bold mb-4 text-md">Professional Support</h3>
                 <img src="https://res.cloudinary.com/dhhw72iwq/image/upload/v1732675512/NextInterview_poflst.jpg" alt=""
                      class="rounded-md"/>
@@ -93,20 +93,20 @@
         </div>
     </section>
 
-    <section>
-        <div class="container">
-            <div class="card2 mt-8 py-12 px-16 flex justify-between">
-                <div class="">
-                    <h2 class="text-3xl font-bold">Connect on the go</h2>
-                    <p class="text-xl">Download TheBoardroom Africa mobile app</p>
-                </div>
-                <div class="flex gap-4">
-                    <img class="h-[70px]"
-                         src="https://res.cloudinary.com/dhhw72iwq/image/upload/v1732676101/play_f4zwjc.svg">
-                    <img class="h-[70px]"
-                         src="https://res.cloudinary.com/dhhw72iwq/image/upload/v1732676101/app_vudinv.svg">
-                </div>
-            </div>
-        </div>
-    </section>
+    {{--    <section>--}}
+    {{--        <div class="container">--}}
+    {{--            <div class="card2 mt-8 py-12 px-16 flex justify-between">--}}
+    {{--                <div class="">--}}
+    {{--                    <h2 class="text-3xl font-bold">Connect on the go</h2>--}}
+    {{--                    <p class="text-xl">Download TheBoardroom Africa mobile app</p>--}}
+    {{--                </div>--}}
+    {{--                <div class="flex gap-4">--}}
+    {{--                    <img class="h-[70px]"--}}
+    {{--                         src="https://res.cloudinary.com/dhhw72iwq/image/upload/v1732676101/play_f4zwjc.svg">--}}
+    {{--                    <img class="h-[70px]"--}}
+    {{--                         src="https://res.cloudinary.com/dhhw72iwq/image/upload/v1732676101/app_vudinv.svg">--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </section>--}}
 </x-dash-layout>

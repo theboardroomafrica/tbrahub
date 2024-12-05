@@ -1,6 +1,6 @@
 @unless(empty($title))
     <div class="container">
-        <div class="flex items-center justify-between py-6">
+        <div class="flex items-center justify-between pt-12 pb-6">
             <h2 class="text-3xl font-semibold text-dark font-libre">{{ $title }}</h2>
 
             @unless(!empty($hideButton))

@@ -4,7 +4,7 @@
 
     <section class="pt-12">
 
-        <x-opportunity-header :opportunity="$opportunity" hideApply="true"/>
+        <x-opportunity-header :opportunity="$opportunity"/>
 
         <div class="container">
             <div class="card2 rounded-t-none border-t-0">

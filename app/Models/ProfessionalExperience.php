@@ -39,4 +39,9 @@ class ProfessionalExperience extends Model
     {
         return $this->position;
     }
+
+    public function applicationExperiences()
+    {
+        return $this->hasMany(OpportunityApplicationExperience::class);
+    }
 }

@@ -20,4 +20,9 @@ class OpportunityStage extends Model
     {
         return $this->hasMany(Opportunity::class, 'stage_id');
     }
+
+    public function applications()
+    {
+        return $this->hasMany(OpportunityApplication::class);
+    }
 }

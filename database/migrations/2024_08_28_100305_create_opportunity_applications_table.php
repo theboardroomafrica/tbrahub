@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->foreignUuid('opportunity_id')->constrained()->onDelete('cascade');
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('stage_id')->nullable()->references('id')->on('opportunity_stages')->onDelete('cascade');
+            $table->text('reason');
             $table->text('cover_letter')->nullable();
             $table->timestamps();
         });

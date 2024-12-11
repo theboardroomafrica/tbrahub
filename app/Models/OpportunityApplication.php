@@ -25,4 +25,9 @@ class OpportunityApplication extends Model
     {
         return $this->belongsTo(OpportunityStage::class, 'stage_id');
     }
+
+    public function experiences()
+    {
+        return $this->hasMany(OpportunityApplicationExperience::class);
+    }
 }

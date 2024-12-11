@@ -11,6 +11,8 @@ class OpportunityApplicationExperience extends Model
 
     protected $guarded = [];
 
+    protected $table = 'oaes';
+
     public function opportunityApplication()
     {
         return $this->belongsTo(OpportunityApplication::class);

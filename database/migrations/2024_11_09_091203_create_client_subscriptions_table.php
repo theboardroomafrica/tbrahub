@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('client_subscriptions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('client_id')->constrained()->onDelete('cascade');
-            $table->foreignUuid('package_id')->constrained()->onDelete('set null');
+            $table->foreignUuid('package_id')->nullable()->constrained()->nullOnDelete();
             $table->string('stripe_subscription_id')->nullable(); // Store Stripe subscription ID for reference
             $table->integer('credits_assigned'); // Track how many credits were assigned
             $table->dateTime('started_at'); // When the subscription or plan started

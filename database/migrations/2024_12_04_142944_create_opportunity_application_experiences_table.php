@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('opportunity_application_experiences', function (Blueprint $table) {
+        Schema::create('oaes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('opportunity_application_id')->constrained('opportunity_applications')->onDelete('cascade');
             $table->foreignId('opportunity_experiences_id')->constrained('experiences')->onDelete('cascade');

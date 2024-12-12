@@ -18,7 +18,7 @@ class CoverGenerator extends Component
         $this->placeholder = "Generating cover letter...";
 
         $stream = OpenAI::threads()->createAndRunStreamed([
-            'assistant_id' => 'asst_METMOpNm0R2mRDGgWn4MQOCI',
+            'assistant_id' => assistantId(),
             'model' => 'gpt-4o-mini',
             'thread' => [
                 'messages' =>

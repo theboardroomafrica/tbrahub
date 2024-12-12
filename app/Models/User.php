@@ -150,6 +150,11 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(OpportunityApplication::class, 'user_id');
     }
 
+    public function hasOpportunityApplication($id)
+    {
+        return $this->opportunityApplications()->where('opportunity_id', $id)->first();
+    }
+
     public function opportunityConnections()
     {
         return $this->hasMany(OpportunityConnection::class, 'user_id');
@@ -208,4 +213,6 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasOne(OpportunityBookmark::class);
     }
+
+
 }

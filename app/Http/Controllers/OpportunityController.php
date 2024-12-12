@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Opportunity;
+use App\Models\OpportunityApplication;
 use Carbon\Carbon;
 
 class OpportunityController extends Controller
@@ -26,7 +27,9 @@ class OpportunityController extends Controller
 
     public function apply(Opportunity $opportunity)
     {
-        return view('opportunities.apply', compact('opportunity'));
+        $user = auth()->user();
+        $application = $user->hasOpportunityApplication($opportunity->id) ?? new OpportunityApplication();
+        return view('opportunities.apply', compact('opportunity', 'application'));
     }
 
     public function recommend(Opportunity $opportunity)

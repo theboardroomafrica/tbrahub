@@ -9,6 +9,7 @@
             <x-menu-item title="Dashboard" route="{{ route('dashboard') }}" icon="home"/>
             <x-menu-item title="Opportunities" route="{{ route('opportunities.index') }}" icon="briefcase"/>
             <x-menu-item title="Professional Support" route="#" icon="user-group"/>
+            <x-menu-item title="Executive Education" route="#" icon="academic-cap"/>
             <x-menu-item title="Connections" route="{{ route('connections.index') }}" icon="paper-airplane"/>
             <x-menu-item title="Events" route="#" icon="calendar"/>
             <x-menu-item title="Resources" route="#" icon="folder"/>

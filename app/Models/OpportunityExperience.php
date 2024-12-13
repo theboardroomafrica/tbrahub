@@ -9,6 +9,8 @@ class OpportunityExperience extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function experience()
     {
         return $this->belongsTo(Experience::class);

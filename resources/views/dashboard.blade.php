@@ -39,16 +39,16 @@
                     <div class="opportunities grid grid-cols-2 gap-8 mt-4">
                         <a href="#" class="border border-gray-200 rounded-lg overflow-hidden bg-white">
                             <img alt=""
-                                 src="https://res.cloudinary.com/dhhw72iwq/image/upload/v1715676734/WebinarBnnr_tgsrkk.jpg"
-                                 class="mx-auto h-[200px] object-cover"/>
+                                 src="https://res.cloudinary.com/dhhw72iwq/image/upload/v1734097123/ModernBdR_hb37eb.jpg"
+                                 class="mx-auto w-full h-[200px] object-cover"/>
                             <div class="p-4 flex gap-3 items-center">
                                 <div class="bg-mustard-200 text-sm py-1 px-3 rounded flex flex-col">
-                                    <p class="text-mustard-600 font-bold text-xs">JUL</p>
+                                    <p class="text-mustard-600 font-bold text-xs">JAN</p>
                                     <p class="text-xl font-bold leading-none">19</p>
                                 </div>
                                 <div class="">
-                                    <h3 class="font-bold">Developing Executive Presence</h3>
-                                    <p class="text-sm"><b>Coach:</b> Rachel Adams</p>
+                                    <h3 class="font-bold">The Modern Boardroom</h3>
+                                    <p class="text-sm"><b>Coach:</b> Leah Ndukati Samuel</p>
                                 </div>
                             </div>
                         </a>
@@ -58,8 +58,8 @@
                                  class="mx-auto w-full h-[200px] bg-cover object-cover"/>
                             <div class="p-4 flex gap-3 items-center">
                                 <div class="bg-mustard-200 text-sm py-1 px-3 rounded flex flex-col">
-                                    <p class="text-mustard-600 font-bold text-xs">JUL</p>
-                                    <p class="text-xl font-bold leading-none">19</p>
+                                    <p class="text-mustard-600 font-bold text-xs">MAR</p>
+                                    <p class="text-xl font-bold leading-none">23</p>
                                 </div>
                                 <div class="">
                                     <h3 class="font-bold">Developing Executive Presence</h3>

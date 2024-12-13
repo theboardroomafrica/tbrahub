@@ -9,6 +9,7 @@ use App\Models\OpportunityApplication;
 use App\Models\OpportunityApplicationExperience;
 use App\Models\ProfessionalExperience;
 use Filament\Forms\Components\Actions;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\RichEditor;
@@ -56,6 +57,9 @@ class OpportunityApplicationForm extends Component implements HasForms
                             ->label('Reason for application')
                             ->placeholder("What is your reason for applying for this role?")
                             ->required(),
+                        Actions::make([
+                            $this->optimizeWithAi()
+                        ]),
                         RichEditor::make('cover_letter')
                             ->placeholder("Write your cover letter here or use the AI generator...")
                             ->label('Cover Letter'),
@@ -128,6 +132,9 @@ class OpportunityApplicationForm extends Component implements HasForms
                         ->label("")
                         ->required(fn($get) => !empty($get("experiences.{$experienceId}.professional_experience_ids")))
                         ->placeholder("Please demonstrate your experience in a commercial or strategic role in an {$experienceName} business and specific experience growing the business including role, key metrics, and details of your direct contribution to the organisation's growth. "),
+                    Actions::make([
+                        $this->optimizeWithAi()
+                    ])
                 ])
                 // ->collapsible()
                 // ->collapsed($i > 0)
@@ -135,5 +142,13 @@ class OpportunityApplicationForm extends Component implements HasForms
         }
 
         return $fields;
+    }
+
+    public function optimizeWithAi(): Action
+    {
+        return Action::make('optimize')
+            ->label("Optimise with AI")
+            ->color('gray')
+            ->icon('heroicon-o-sparkles');
     }
 }

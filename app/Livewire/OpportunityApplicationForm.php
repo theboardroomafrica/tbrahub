@@ -2,19 +2,16 @@
 
 namespace App\Livewire;
 
+use App\Filament\Actions\GenerateWithAiAssistant;
 use App\Models\OpportunityApplication;
 use Filament\Forms\Components\Actions;
-use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use OpenAI\Laravel\Facades\OpenAI;
 
 class OpportunityApplicationForm extends Component implements HasForms
 {
@@ -40,33 +37,10 @@ class OpportunityApplicationForm extends Component implements HasForms
                             ->placeholder("Write your cover letter here or use the AI generator...")
                             ->label('Cover Letter'),
                         Actions::make([
-                            Action::make('generate_cover_letter')
-                                ->icon('heroicon-o-sparkles')
-                                ->action(function (Get $get, Set $set) {
-                                    $response = '';
-
-                                    $stream = OpenAI::threads()->createAndRunStreamed([
-                                        'assistant_id' => assistantId(),
-                                        'model' => 'gpt-4o-mini',
-                                        'thread' => [
-                                            'messages' => [
-                                                [
-                                                    'role' => 'user',
-                                                    'content' => memberCv(),
-                                                ],
-                                            ],
-                                        ],
-                                    ]);
-
-                                    foreach ($stream as $streamResponse) {
-                                        $content = '';
-                                        if ($streamResponse->event == 'thread.message.delta') {
-                                            $content = $streamResponse->response['delta']['content'][0]['text']['value'];
-                                            $response .= $content;
-                                            $set('cover_letter', $response);
-                                        }
-                                    }
-                                })
+                            GenerateWithAiAssistant::make()
+                                ->target('cover_letter')
+                                ->assistantId(assistantId())
+                                ->content(memberCv())
                         ])
                     ]),
             ])

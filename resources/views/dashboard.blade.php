@@ -14,7 +14,7 @@
                     </div>
                     <div class="opportunities grid grid-cols-3 gap-6">
 
-                        @foreach(\App\Models\Opportunity::take(3)->get() as $opportunity)
+                        @foreach(\App\Models\Opportunity::latest()->take(3)->get() as $opportunity)
                             <a href="{{ route('opportunities.show', $opportunity) }}"
                                class="pt-6 border border-gray-200 rounded-lg overflow-hidden bg-white">
                                 <img alt="Opportunity Logo"

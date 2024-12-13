@@ -44,4 +44,9 @@ class Opportunity extends Model
         $diff = ceil(now()->diffInDays($this->deadline));
         return $this->deadline->isFuture() ? $diff . ' days more' : $diff . ' days ago';
     }
+
+    public function opportunityExperiences()
+    {
+        return $this->hasMany(OpportunityExperience::class);
+    }
 }

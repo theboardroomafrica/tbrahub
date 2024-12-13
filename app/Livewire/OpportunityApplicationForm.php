@@ -6,8 +6,10 @@ use App\Filament\Actions\GenerateWithAiAssistant;
 use App\Models\Experience;
 use App\Models\Opportunity;
 use App\Models\OpportunityApplication;
+use App\Models\OpportunityApplicationExperience;
 use App\Models\ProfessionalExperience;
 use Filament\Forms\Components\Actions;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
@@ -72,7 +74,28 @@ class OpportunityApplicationForm extends Component implements HasForms
     public function save(): void
     {
         $data = $this->form->getState();
-        // $this->record->update($data);
+
+        $this->record->updateOrCreate([
+            'opportunity_id' => $this->opportunity->id,
+            'user_id' => $this->user->id,
+        ], [
+            'reason' => $data['reason'] ?? null,
+            'cover_letter' => $data['cover_letter'] ?? null,
+        ]);
+
+        $this->record->experiences()->delete();
+
+        foreach (($data['experiences'] ?? []) as $opportunityExperienceId => $appExpData) {
+            foreach ($appExpData['professional_experience_id'] as $experienceId) {
+                OpportunityApplicationExperience::updateOrCreate([
+                    'opportunity_application_id' => $this->record->id,
+                    'opportunity_experiences_id' => $opportunityExperienceId,
+                    'professional_experience_id' => $experienceId,
+                ], [
+                    'message' => $appExpData['message'],
+                ]);
+            }
+        }
     }
 
     public function render(): View
@@ -84,24 +107,30 @@ class OpportunityApplicationForm extends Component implements HasForms
     {
         $fields = [];
         $professionalExperiences = ProfessionalExperience::where('user_id', $this->user_id)->pluck('position', 'id');
-        $fields[] = Placeholder::make('relevant_experiences');
+
+        if (count($this->opportunityExperiences)) {
+            $fields[] = Placeholder::make('relevant_experiences');
+        }
+
         foreach ($this->opportunityExperiences as $i => $opportunityExperience) {
             $experienceName = $opportunityExperience->experience->name;
+            $experienceId = $opportunityExperience->experience->id;
 
-            $fields[] = Section::make($experienceName)
+            $fields[] = Fieldset::make($experienceName)
                 ->schema([
-                    Select::make("application_experiences.{$opportunityExperience->id}.professional_experience_id")
+                    Select::make("experiences.{$experienceId}.professional_experience_id")
                         ->label("Please pick up to 3 roles that best demonstrate your fit for this skill")
                         ->options($professionalExperiences)
-                        // ->required()
+                        ->maxItems(3)
+                        ->required(fn($get) => !empty($get("experiences.{$experienceId}.message")))
                         ->multiple(),
-                    RichEditor::make("application_experiences.{$opportunityExperience->id}.message")
+                    RichEditor::make("experiences.{$experienceId}.message")
                         ->label("")
-                        // ->required()
+                        ->required(fn($get) => !empty($get("experiences.{$experienceId}.professional_experience_ids")))
                         ->placeholder("Please demonstrate your experience in a commercial or strategic role in an {$experienceName} business and specific experience growing the business including role, key metrics, and details of your direct contribution to the organisation's growth. "),
                 ])
-                ->collapsible()
-                ->collapsed($i > 0)
+                // ->collapsible()
+                // ->collapsed($i > 0)
                 ->columns(1);
         }
 

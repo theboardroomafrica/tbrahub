@@ -28,7 +28,8 @@
                 <x-heroicon-o-bell-alert class="h-10 w-10 p-2"/>
             </a>
             <a href="#">
-                <img src="https://placehold.co/200x200" alt="Member Image" class="h-8 w-8 rounded-full">
+                <img src="https://res.cloudinary.com/dhhw72iwq/image/upload/v1734097957/marcia_uvkeft.jpg"
+                     alt="Member Image" class="h-8 w-8 rounded-full">
             </a>
         </div>
     </div>

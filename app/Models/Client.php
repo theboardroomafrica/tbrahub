@@ -108,4 +108,9 @@ class Client extends Authenticatable implements FilamentUser
             'started_at' => now(),
         ]);
     }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->avatar_url ?: "https://res.cloudinary.com/dhhw72iwq/image/upload/v1734097957/marcia_uvkeft.jpg";
+    }
 }

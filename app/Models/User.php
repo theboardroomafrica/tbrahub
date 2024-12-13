@@ -214,5 +214,8 @@ class User extends Authenticatable implements HasMedia
         return $this->hasOne(OpportunityBookmark::class);
     }
 
-
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->avatar;
+    }
 }

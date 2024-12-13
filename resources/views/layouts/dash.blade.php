@@ -9,9 +9,10 @@
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @filamentStyles
+    @vite(['resources/css/app.css', 'resources/js/noalpine.js'])
     @filamentScripts
+    {{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
 </head>
 <body class="font-sans antialiased text-sm">
 <div class="min-h-screen bg-gray-50 dark:bg-gray-900">

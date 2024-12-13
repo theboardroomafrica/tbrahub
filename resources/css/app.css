@@ -176,4 +176,8 @@
     .card2 {
         @apply bg-gray-100
     }
+
+    .front-dash .fi-section-header-heading {
+        @apply font-medium text-sm
+    }
 }

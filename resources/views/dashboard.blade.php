@@ -3,7 +3,7 @@
     <x-title-bar title="Welcome, {{ auth()->user()->first_name }}!" hideButton="true"/>
 
     <section>
-        <div class="container grid grid-cols-[5fr_2fr] gap-8">
+        <div class="container grid grid-cols-[5fr_2fr] gap-32">
             <div class="mainbar">
                 <div class="">
                     <div class="flex justify-between mb-4">
@@ -13,33 +13,19 @@
                         <a href="{{ route('opportunities.index') }}" class=""> → All Opportunities</a>
                     </div>
                     <div class="opportunities grid grid-cols-3 gap-6">
-                        <a href="#" class="pt-6 border border-gray-200 rounded-lg overflow-hidden bg-white">
-                            <img alt="Opportunity Logo"
-                                 src="https://www.afsic.net/wp-content/uploads/2022/03/Norsad-Capital-logo.jpg"
-                                 class="mx-auto h-16"/>
 
-                            <div class="bg-gray-200 mt-6 p-3">
-                                <p class="font-semibold">Independent Non Executive Director</p>
-                            </div>
-                        </a>
-                        <a href="#" class="pt-6 border border-gray-200 rounded-lg overflow-hidden bg-white">
-                            <img alt="Opportunity Logo"
-                                 src="https://mastercardfdn.org/wp-content/uploads/2018/10/mcf-logo.jpg"
-                                 class="mx-auto h-16"/>
+                        @foreach(\App\Models\Opportunity::take(3)->get() as $opportunity)
+                            <a href="{{ route('opportunities.show', $opportunity) }}"
+                               class="pt-6 border border-gray-200 rounded-lg overflow-hidden bg-white">
+                                <img alt="Opportunity Logo"
+                                     src="{{ $opportunity->website ?? 'https://placehold.co/150x70' }}"
+                                     class="mx-auto h-16"/>
 
-                            <div class="bg-gray-200 mt-6 p-3">
-                                <p class="font-semibold">Independent Non Executive Director</p>
-                            </div>
-                        </a>
-                        <a href="#" class="pt-6 border border-gray-200 rounded-lg overflow-hidden bg-white">
-                            <img alt="Opportunity Logo"
-                                 src="https://web.theboardroomafrica.com/wp-content/uploads/2022/08/01-unilever.jpg"
-                                 class="mx-auto h-16"/>
-
-                            <div class="bg-gray-200 mt-6 p-3">
-                                <p class="font-semibold">Independent Non Executive Director</p>
-                            </div>
-                        </a>
+                                <div class="bg-gray-200 mt-6 p-3">
+                                    <p class="font-semibold text-center">{{ $opportunity->name }}</p>
+                                </div>
+                            </a>
+                        @endforeach
                     </div>
                 </div>
 
@@ -68,8 +54,8 @@
                         </a>
                         <a href="#" class="border border-gray-200 rounded-lg overflow-hidden bg-white">
                             <img alt=""
-                                 src="https://res.cloudinary.com/dhhw72iwq/image/upload/v1720431441/SteveWebinerBG_vnpvbd.jpg"
-                                 class="mx-auto h-[200px] object-cover"/>
+                                 src="https://res.cloudinary.com/dhhw72iwq/image/upload/v1734085057/ExecutivePresence_bmxwjm.jpg"
+                                 class="mx-auto w-full h-[200px] bg-cover object-cover"/>
                             <div class="p-4 flex gap-3 items-center">
                                 <div class="bg-mustard-200 text-sm py-1 px-3 rounded flex flex-col">
                                     <p class="text-mustard-600 font-bold text-xs">JUL</p>

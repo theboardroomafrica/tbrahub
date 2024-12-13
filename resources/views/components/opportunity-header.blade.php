@@ -35,7 +35,7 @@
                     @endunless
                 </div>
             </div>
-            <img class="" alt="" src="{{ $opportunity->logo ?? 'https://placehold.co/150x70' }}"/>
+            <img class="max-h-[100px]" alt="" src="{{ $opportunity->website ?? 'https://placehold.co/150x70' }}"/>
         </div>
     </div>
 </div>

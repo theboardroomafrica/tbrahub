@@ -1,7 +1,8 @@
 <div class="border rounded-xl p-4 bg-white flex flex-col">
     <div class="flex items-center">
-        <img alt="{{ $opportunity->company }} Logo" src="https://placehold.co/300" width="80"
-             class="rounded-full">
+        <img alt="{{ $opportunity->company }} Logo" src="{{ $opportunity->website ?? 'https://placehold.co/150x70' }}"
+             width="80" height="80"
+             class="bg-cover object-cover">
         <div class="ml-3 flex-1">
             <a href="{{ route('opportunities.show', $opportunity) }}"
                class="font-bold text-[17px] line-clamp-1">{{ $opportunity->company }}</a>

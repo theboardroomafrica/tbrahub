@@ -17,7 +17,8 @@ class GenerateWithAiAssistant extends Action
     public static function make(?string $name = null): static
     {
         $action = parent::make($name ?? 'generate')
-            ->label('Generate')
+            ->label('Generate with AI')
+            ->color('gray')
             ->icon('heroicon-o-sparkles')
             ->action(function (Get $get, Set $set) use (&$action) {
                 $response = '';
